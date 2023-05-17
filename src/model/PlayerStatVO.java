@@ -1,26 +1,29 @@
 package model;
 
 public class PlayerStatVO {
+	
+	public final String ClassName = "PlayerStat";
+	
 	private int pno; // 선수고유번호
 	private String pname, tname; // 선수이름, 팀명
 	private int gcount, goal, assists, shots, // 출전경기수, 득점, 도움, 슈팅
 	shot_on_goal, foul, ycard, rcard, offside; // 유효슈팅, 파울, 경고, 퇴장, 오프사이드
 	
-	public PlayerStatVO(int pno, String pname, String tname, int gcount, int goal, int assists, int shots,
-			int shot_on_goal, int foul, int ycard, int rcard, int offside) {
-		this.pno = pno;
-		this.pname = pname;
-		this.tname = tname;
-		this.gcount = gcount;
-		this.goal = goal;
-		this.assists = assists;
-		this.shots = shots;
-		this.shot_on_goal = shot_on_goal;
-		this.foul = foul;
-		this.ycard = ycard;
-		this.rcard = rcard;
-		this.offside = offside;
-	}
+//	public PlayerStatVO(int pno, String pname, String tname, int gcount, int goal, int assists, int shots,
+//			int shot_on_goal, int foul, int ycard, int rcard, int offside) {
+//		this.pno = pno;
+//		this.pname = pname;
+//		this.tname = tname;
+//		this.gcount = gcount;
+//		this.goal = goal;
+//		this.assists = assists;
+//		this.shots = shots;
+//		this.shot_on_goal = shot_on_goal;
+//		this.foul = foul;
+//		this.ycard = ycard;
+//		this.rcard = rcard;
+//		this.offside = offside;
+//	}
 
 	public int getPno() {
 		return pno;
