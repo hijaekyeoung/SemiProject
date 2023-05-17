@@ -10,7 +10,6 @@ import controller.playerStatController;
 
 
 public class MainEntry {
-
 		public static void main(String[] args) throws SQLException, IOException {
 				SoccerMenu mainMenu = new SoccerMenu();
 				PlayerController pcon = new PlayerController();
