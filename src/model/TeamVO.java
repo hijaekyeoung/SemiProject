@@ -1,18 +1,15 @@
 package model;
 
 public class TeamVO {
-	private int tcode; // 팀 고유번호
-	private String tName; // 팀명
-	private int twin, tdraw, tlose, tscore, conceded; // 승, 무, 패, 득점, 실점
+	private int tcode,twin, tdraw, tlose, tscore, tconceded; // 팀 고유번호 ,승, 무, 패, 득점, 실점
+	private String tname; // 팀명
+	private int gd; // 득실차
 	
-	public TeamVO(int tcode, String tName, int twin, int tdraw, int tlose, int tscore, int conceded) {
-		this.tcode = tcode;
-		this.tName = tName;
-		this.twin = twin;
-		this.tdraw = tdraw;
-		this.tlose = tlose;
-		this.tscore = tscore;
-		this.conceded = conceded;
+	public int getGd() {
+		return gd;
+	}
+	public void setGd(int gd) {
+		this.gd = gd;
 	}
 	public int getTcode() {
 		return tcode;
@@ -20,11 +17,11 @@ public class TeamVO {
 	public void setTcode(int tcode) {
 		this.tcode = tcode;
 	}
-	public String gettName() {
-		return tName;
+	public String getTname() {
+		return tname;
 	}
-	public void settName(String tName) {
-		this.tName = tName;
+	public void setTname(String tName) {
+		this.tname = tName;
 	}
 	public int getTwin() {
 		return twin;
@@ -50,13 +47,11 @@ public class TeamVO {
 	public void setTscore(int tscore) {
 		this.tscore = tscore;
 	}
-	public int getConceded() {
-		return conceded;
+	public int getTconceded() {
+		return tconceded;
 	}
-	public void setConceded(int conceded) {
-		this.conceded = conceded;
-	}
-	
-	
+	public void setTconceded(int tconceded) {
+		this.tconceded = tconceded;
+	}	
 	
 }
