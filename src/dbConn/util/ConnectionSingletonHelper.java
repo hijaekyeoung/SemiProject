@@ -12,6 +12,7 @@ public class ConnectionSingletonHelper {
 	private ConnectionSingletonHelper() {
 	}
 
+
 	public static Connection getConnection() {
 		if (conn != null) {
 			return conn;

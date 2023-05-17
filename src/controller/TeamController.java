@@ -48,8 +48,7 @@ public class TeamController {
 		}
 	}
 	
-	public static void menu() throws SQLException, IOException { //예외처리위임
-		TeamVO vo = new TeamVO();
+	public static void menu() throws SQLException, IOException { 
 		
 		while(true) {
 			System.out.println("\n=-=-=-=-=-=-=-= JDBC Query =-=-=-=-=-=-=-=");
