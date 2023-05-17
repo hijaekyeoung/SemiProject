@@ -2,9 +2,13 @@ package dbConn.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConnectionSingletonHelper {
+
 	   private static Connection conn;
 	   private ConnectionSingletonHelper() { }
 	   
@@ -30,8 +34,7 @@ public class ConnectionSingletonHelper {
 	         }
 	      }
 	   }
-	   
-		public static void menu() {
+	   public static void menu() {
 			System.out.println("\n-=-=-=-=-= 메뉴 선택 =-=-=-=-=-");
 			System.out.println("\t 0. rollback ");
 			System.out.println("\t 1. 일정 조회 [사용자] ");
@@ -46,4 +49,6 @@ public class ConnectionSingletonHelper {
 	   
 	   
 	}
+	   
 }
+
