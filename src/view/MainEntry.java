@@ -23,11 +23,10 @@ public class MainEntry {
 	    pcon.menu();
 
 		VoteController.connect();
-		VoteController.selectByGno();
-//		VoteController.selectByGnoEnd();
+		VoteController.menu();
 		
-		TeamController.connect();
-		TeamController.menu();
+//		TeamController.connect();
+//		TeamController.menu();
 	}
 }
 
