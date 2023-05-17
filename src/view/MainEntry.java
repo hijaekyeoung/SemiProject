@@ -10,17 +10,16 @@ import controller.gameResultController;
 
 public class MainEntry {
 	public static void main(String[] args) throws SQLException, IOException {
-		gameResultController.connect();
-		gameResultController.gameresultMenu();
-		PlayerController pcon = new PlayerController();
-	    pcon.dbConnect();
-	    pcon.menu();
+//		gameResultController.connect();
+//		gameResultController.gameresultMenu();
+//		PlayerController pcon = new PlayerController();
+//	    pcon.dbConnect();
+//	    pcon.menu();
 
 		VoteController.connect();
-		VoteController.selectByGno();
-//		VoteController.selectByGnoEnd();
+		VoteController.menu();
 		
-		TeamController.connect();
-		TeamController.menu();
+//		TeamController.connect();
+//		TeamController.menu();
 	}
 }
