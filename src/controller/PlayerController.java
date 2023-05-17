@@ -62,13 +62,22 @@ public class PlayerController {
 			ConnectionSingletonHelper.close(conn);
 		} catch (Exception e) { e.printStackTrace(); }
 	}
-	
+
+	public static void playerMenu() {
+		System.out.println("\n ============ PLAYER LIST ===========");
+		System.out.println("\t 1. 선수 리스트");
+		System.out.println("\t 2. 선수 정보 추가 ");
+		System.out.println("\t 3. 선수 정보 수정 ");
+		System.out.println("\t 4. 선수 정보 삭제 ");
+		System.out.println("\t 5. 특정 조건 검색");
+		System.out.println("\t 6. 메인메뉴로 돌아가기 ");
+		System.out.println("\t >> 원하는 메뉴를 선택하세요.");
+	}
 	public void menu() throws SQLException {
-		PlayerVO pvo = new PlayerVO();
 		
 		while(true) {
 			System.out.println();
-			ConnectionSingletonHelper.menu();
+			playerMenu();
 			
 			switch(sc.nextInt()) {
 			case 1: 
@@ -87,9 +96,7 @@ public class PlayerController {
 				selectOption();
 				break;
 			default:
-				close();
-				System.out.println("시스템을 종료합니다.");
-				System.exit(0);
+				return;
 			}
 		}
 	}
