@@ -1,10 +1,10 @@
 package model;
 
-public class Vote {
+public class VoteVO {
 	private int gno; //경기번호
 	private int avote, bvote; // A팀득표, B팀득표
 	
-	public Vote(int gno, int avote, int bvote) {
+	public VoteVO(int gno, int avote, int bvote) {
 		this.gno = gno;
 		this.avote = avote;
 		this.bvote = bvote;
