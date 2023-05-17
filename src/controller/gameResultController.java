@@ -36,43 +36,23 @@ public class gameResultController { // controller
 	
 	//*//menu class
 	public static void gameresultMenu() throws SQLException {            
-		GameResultVO vo = new GameResultVO(); //GameResultVO 클래스 주석처리 확인
+		GameResultVO vo = new GameResultVO(); 
 				System.out.println("\n-=-=-=-=-= 메뉴 선택 =-=-=-=-=-");
-				System.out.println("\t 0. rollback ");
 				System.out.println("\t 1. 일정 조회 [사용자] ");
-				
-				System.out.println("\t 3. 경기 결과 등록 [관리자]");
-				System.out.println("\t 4. 경기 일정 변경 [관리자]");
-				System.out.println("\t 5. 경기 일정 추가[관리자]");
-				System.out.println("\t 5. X ");
-				System.out.println("\t 6. 프로그램 종료 ");
-				System.out.println("\t 9. commit ");
+				System.out.println("\t 2. 경기 결과 등록 [관리자]");
+				System.out.println("\t 3. 경기 일정 변경 [관리자]");
+				System.out.println("\t 4. 경기 일정 추가[관리자]");
 				System.out.println("\t >> 원하는 메뉴 선택하세요. ");
 		
 		while(true) {
 			System.out.println();
-			ConnectionSingletonHelper.menu();
 			switch (sc.nextInt()) {
-			case 0 : System.out.println("Commit 하시겠습니까?(Y/N) "); //case0 안건드렸음
-					System.out.println("안하시려면 Rollback 됩니다.");
-					if(sc.next().equalsIgnoreCase("Y")){
-						selectAll(); 
-					} else {
-						conn.rollback();
-						selectAll(); 
-					}
-					break;
 			
 			case 1 : selectMenu();  break; //(
-			case 3 : updateResult(); break;
-			case 4 : updateDate(); break;
-			case 5 : insertGame(); break; 
+			case 2 : updateResult(); break;
+			case 3 : updateDate(); break;
+			case 4 : insertGame(); break; 
 
-//			case 5 : selectByGNO(vo.getClassName()); break;
-//			case 6 : close(); System.out.println("프로그램 종료합니다");
-//					System.exit(0); break;
-			case 9 : conn.commit();
-					System.out.println("성공적으로 완료 되었습니다."); break;
 			}// switch
 		}//end while
 	}// menu end
@@ -83,10 +63,7 @@ public class gameResultController { // controller
 			System.out.println("\t 1. 모든 경기 일정 ");
 			System.out.println("\t 2. 팀 일정 조회");
 			System.out.println("\t 3. 월별 일정 조회 ");
-			System.out.println("\t 4. 레코드 삭제 ");
-			System.out.println("\t 5. 조건에 의한 검색(ex>gname) ");
-			System.out.println("\t 6. 프로그램 종료 ");
-			System.out.println("\t 9. 뒤로 가기 ");
+
 			System.out.println("\t >> 원하는 메뉴 선택하세요. ");
 			while(true) {
 			switch (sc.nextInt()) {
@@ -94,11 +71,7 @@ public class gameResultController { // controller
 			case 1 : selectAll();  break; 
 			case 2 : selectTeam(); 
 			case 3 : selectMonth(); break;
-//			case 4 : delete(vo.getClassName()); break;
-//			case 5 : selectByGNO(vo.getClassName()); break;
-			case 6 : close(); System.out.println("프로그램 종료합니다");
-					System.exit(0); break;
-			case 9 : gameresultMenu();
+			
 			}// switch
 		}//end while
 	}// menu end
