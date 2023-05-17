@@ -1,7 +1,13 @@
 package view;
 
+import java.sql.SQLException;
+
+import controller.PlayerController;
+
 public class MainEntry {
-	public static void main(String[] args) {
-		System.out.println("축구 통계");
+	public static void main(String[] args) throws SQLException {
+		PlayerController pcon = new PlayerController();
+		pcon.dbConnect();
+		pcon.menu();
 	}
 }
