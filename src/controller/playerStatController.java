@@ -13,52 +13,58 @@ import model.PlayerStatVO;
 
 public class playerStatController {
 	
-	
 	static Scanner sc = new Scanner(System.in);
 	static Statement stmt = null;
 	static ResultSet rs = null;
 	static PreparedStatement pstmt = null;
 	static Connection conn = null;
 	
+	
+	// connect
 	public static void connect() {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
 			conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-	}
+		} catch (Exception e) {e.printStackTrace();}	
+	} // connect end
+	
+	
 ///////////// close //////////////////////////////////	
 	
+	
+	 // close end
 	public static void close() {
 		try {
 			
 			ConnectionSingletonHelper.close(rs);
 			ConnectionSingletonHelper.close(stmt);
 			ConnectionSingletonHelper.close(pstmt);
-			
+
+		} catch (Exception e) {e.printStackTrace();}
+	} // close end
+	
+	
+	public static void playerStatMenu() {
 		
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+		PlayerStatVO vo = new PlayerStatVO();
+		
+	      System.out.println("\n ============ PLAYER STAT LIST ===========");
+	      System.out.println("\t 1. 선수 스탯 리스트");
+	      System.out.println("\t 2. 선수 도움 순위 ");
+//	      System.out.println("\t 3. 선수 정보 수정 ");
+	      System.out.println("\t 4. 선수 정보 삭제 ");
+	      System.out.println("\t 5. 선수 경기당 득점 ");
+	      System.out.println("\t 6. 선수 경기당 도움 ");
+	      System.out.println("\t 8. 프로그램 종료 ");
+	  }
 
-
-	
-	
 	public static void playerStat() throws SQLException{
-		
-//		PlayerStatVO vo = new PlayerStatVO(0, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		
-		
 		while(true) {
 			
 			System.out.println();
-			ConnectionSingletonHelper.menu();
+			playerStatMenu();
 			System.out.println();
 			System.out.println();
 			System.out.println("옵션 선택하세요.");
@@ -76,14 +82,10 @@ public class playerStatController {
 						 }
 				case 1: selectAll(); break;		 
 				case 2: selectAllAssists(); break;
-				
-				
 //				case 3: update(); break;	 
 				case 4: delete(); break;
 				case 5: selectAllByGoalsPerGame(); break;
 				case 6: selectAllByAssistsPerGame(); break;
-				
-				
 				case 8: close(); System.out.println("프로그램 종료합니다.");
 						System.exit(0); break;
 				case 9: conn.commit();
@@ -94,8 +96,13 @@ public class playerStatController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	public static void selectAll() throws SQLException {
-//        rs = stmt.executeQuery("SELECT * FROM playerStat");
 	      
 	      rs = stmt.executeQuery("SELECT rownum, pno,pname,tname,g_count,goal,assists,shots,shots_on_goal,"
 	      		+ "foul,ycard,rcard,offside FROM playerStat");
@@ -315,17 +322,6 @@ public class playerStatController {
 
 		
 } // playerStatController end		
-
-
-
-
-
-
-
-
-
-
-
 
 
 
