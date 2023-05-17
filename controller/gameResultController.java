@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+
 import dbConn.util.ConnectionSingletonHelper;
 import model.GameResultVO;
 
@@ -32,7 +33,6 @@ public class gameResultController { // controller
 	// close
 	public static void close() {
 		try {
-<<<<<<< HEAD
 			ConnectionSingletonHelper.close(rs); ConnectionSingletonHelper.close(stmt); ConnectionSingletonHelper.close(conn); ConnectionSingletonHelper.close(pstmt);
  		} catch (Exception e) {e.printStackTrace();}
 	}//close end
