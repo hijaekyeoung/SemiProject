@@ -36,7 +36,6 @@ public class gameResultController { // controller
 	
 	//*//menu class
 	public static void gameresultMenu() throws SQLException {            
-		GameResultVO vo = new GameResultVO(); //GameResultVO 클래스 주석처리 확인
 				System.out.println("\n-=-=-=-=-= 메뉴 선택 =-=-=-=-=-");
 				System.out.println("\t 0. rollback ");
 				System.out.println("\t 1. 일정 조회 [사용자] ");
@@ -123,7 +122,8 @@ public class gameResultController { // controller
 			else 
 				System.out.println(gdate+" NO."+gno+" "+ateam + " [경기 예정] " + bteam);
 			}
-			lastmessage();
+		return;
+//			lastmessage();
 		}//selectAll
 	
 	public static void selectTeam () throws SQLException {

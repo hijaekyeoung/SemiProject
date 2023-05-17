@@ -66,12 +66,15 @@ public class VoteController {
 				conn.rollback();
 				break;
 			case 1:
+				gameResultController.selectAll();
 				selectByGno();
 				break;
 			case 2:
+				gameResultController.selectAll();
 				selectByGnoEnd();
 				break;
 			case 3:
+				gameResultController.selectAll();
 				update();
 				break;
 			case 4:
@@ -99,7 +102,7 @@ public class VoteController {
 		pstmt.setInt(1, gno);
 		rs = pstmt.executeQuery();
 		if (!(rs.next())) {
-			System.out.println("없는 경기 입니다.");
+			System.out.println("투표가 없는 경기입니다.");
 			return;
 		}
 
@@ -115,7 +118,7 @@ public class VoteController {
 		pstmt.setInt(1, gno);
 		rs = pstmt.executeQuery();
 		if (!(rs.next())) {
-			System.out.println("없는 경기 입니다.");
+			System.out.println("투표가 없는 경기 입니다.");
 			return;
 		}
 

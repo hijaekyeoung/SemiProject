@@ -14,13 +14,13 @@ import dbConn.util.ConnectionSingletonHelper;
 
 public class MainEntry {
 	public static void main(String[] args) throws SQLException, IOException {
-		playerStatController.connect();
-		playerStatController.playerStat();
-		gameResultController.connect();
-		gameResultController.gameresultMenu();
-		PlayerController pcon = new PlayerController();
-	    pcon.dbConnect();
-	    pcon.menu();
+//		playerStatController.connect();
+//		playerStatController.playerStat();
+//		gameResultController.connect();
+//		gameResultController.gameresultMenu();
+//		PlayerController pcon = new PlayerController();
+//	    pcon.dbConnect();
+//	    pcon.menu();
 
 		VoteController.connect();
 		VoteController.menu();
