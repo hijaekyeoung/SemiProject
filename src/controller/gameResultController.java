@@ -6,10 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.Scanner;
-
-import dbConn.util.CloseHelper;
 import dbConn.util.ConnectionSingletonHelper;
 import model.GameResultVO;
 
@@ -33,13 +30,25 @@ public class gameResultController { // controller
 	//close
 	public static void close() {
 		try {
-			CloseHelper.close(rs); CloseHelper.close(stmt); CloseHelper.close(conn); CloseHelper.close(pstmt);
+			ConnectionSingletonHelper.close(rs); ConnectionSingletonHelper.close(stmt); ConnectionSingletonHelper.close(conn); ConnectionSingletonHelper.close(pstmt);
  		} catch (Exception e) {e.printStackTrace();}
 	}//close end
 	
 	//*//menu class
-	public static void menu() throws SQLException {            
+	public static void gameresultMenu() throws SQLException {            
 		GameResultVO vo = new GameResultVO(); //GameResultVO 클래스 주석처리 확인
+				System.out.println("\n-=-=-=-=-= 메뉴 선택 =-=-=-=-=-");
+				System.out.println("\t 0. rollback ");
+				System.out.println("\t 1. 일정 조회 [사용자] ");
+				
+				System.out.println("\t 3. 경기 결과 등록 [관리자]");
+				System.out.println("\t 4. 경기 일정 변경 [관리자]");
+				System.out.println("\t 5. 경기 일정 추가[관리자]");
+				System.out.println("\t 5. X ");
+				System.out.println("\t 6. 프로그램 종료 ");
+				System.out.println("\t 9. commit ");
+				System.out.println("\t >> 원하는 메뉴 선택하세요. ");
+		
 		while(true) {
 			System.out.println();
 			ConnectionSingletonHelper.menu();
@@ -89,7 +98,7 @@ public class gameResultController { // controller
 //			case 5 : selectByGNO(vo.getClassName()); break;
 			case 6 : close(); System.out.println("프로그램 종료합니다");
 					System.exit(0); break;
-			case 9 : menu();
+			case 9 : gameresultMenu();
 			}// switch
 		}//end while
 	}// menu end
@@ -242,7 +251,7 @@ public class gameResultController { // controller
 		System.out.println("\t 9. 프로그램 종료 ");
 		switch (sc.nextInt()) {
 //		case 7 : break; 
-		case 8 : menu(); break;  
+		case 8 : gameresultMenu(); break;  
 		case 9 : close(); System.out.println("프로그램 종료합니다");
 				System.exit(0); break;
 		}
