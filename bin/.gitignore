@@ -1,4 +1,18 @@
+<<<<<<< HEAD
 /controller/
 /dbConn/
 /model/
 /view/
+=======
+<<<<<<< HEAD
+/dbConn/
+/controller/
+/view/
+/model/
+=======
+/model/
+/controller/
+/dbConn/
+/view/
+>>>>>>> 44a7c1ca6e042b430e81f8ef5f4a841c5ba1e6b1
+>>>>>>> 09f18f36d4b43f8f616696d98ef61f988566bb00
