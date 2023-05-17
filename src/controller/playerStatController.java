@@ -46,9 +46,18 @@ public class playerStatController {
 		}
 	}
 	
-
-
-	
+	public static void menu() {
+		System.out.println("\n ============ PLAYER LIST ===========");
+		System.out.println("\t 0. commit");
+		System.out.println("\t 1. 선수 스탯 리스트");
+		System.out.println("\t 2. 선수 어시스트 순위");
+		System.out.println("\t 3. 아직 못함 ");
+		System.out.println("\t 4. 선수 스탯 리스트 삭제 ");
+		System.out.println("\t 5. 경기당 득점률 순위 ");
+		System.out.println("\t 6. 경기당 어시스트율 순위 ");
+		System.out.println("\t 8. 메인메뉴로 돌아가기 ");
+		System.out.println("\t 9. commit ");
+	}
 	
 	public static void playerStat() throws SQLException{
 		
@@ -58,7 +67,7 @@ public class playerStatController {
 		while(true) {
 			
 			System.out.println();
-			ConnectionSingletonHelper.menu();
+			menu();
 			System.out.println();
 			System.out.println();
 			System.out.println("옵션 선택하세요.");
@@ -84,8 +93,7 @@ public class playerStatController {
 				case 6: selectAllByAssistsPerGame(); break;
 				
 				
-				case 8: close(); System.out.println("프로그램 종료합니다.");
-						System.exit(0); break;
+				case 8: return;
 				case 9: conn.commit();
 						System.out.println("성공적으로 완료 되었습니다.");
 			

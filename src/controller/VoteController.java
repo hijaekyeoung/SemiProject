@@ -47,7 +47,7 @@ public class VoteController {
 		}
 	}
 
-	public static void menu() throws SQLException, IOException {
+	public static void voteMenu() throws SQLException, IOException {
 
 		while (true) {
 			System.out.println("\n=-=-=-=-=-=-=-= JDBC Query =-=-=-=-=-=-=-=");
@@ -56,7 +56,7 @@ public class VoteController {
 			System.out.println("\t 2.경기 결과 보기");
 			System.out.println("\t 3.투표 하기");
 			System.out.println("\t 4.경기 추가하기");
-			System.out.println("\t 8.프로그램 종료");
+			System.out.println("\t 8.메인메뉴로 돌아가기");
 			System.out.println("\t 9.COMMIT");
 			System.out.println("\t >> 원하는 메뉴를 선택하세요. ");
 
@@ -81,10 +81,7 @@ public class VoteController {
 				insert();
 				break;
 			case 8:
-				close();
-				System.out.println("프로그램 종료합니다.!!");
-				System.exit(0);
-				break;
+				return;
 			case 9:
 				conn.commit();
 				System.out.println("성공적으로 완료 되었습니다.");
@@ -179,6 +176,5 @@ public class VoteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}// end insert
-
+	}
 }
