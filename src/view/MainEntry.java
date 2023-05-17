@@ -1,6 +1,5 @@
 package view;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import controller.PlayerController;
@@ -9,24 +8,24 @@ import controller.VoteController;
 import controller.gameResultController;
 import controller.playerStatController;
 
+
 public class MainEntry {
-	public static void main(String[] args) throws SQLException, IOException {
-		playerStatController.connect();
-		playerStatController.playerStat();
-		gameResultController.connect();
-		gameResultController.gameresultMenu();
-		PlayerController pcon = new PlayerController();
-	    pcon.dbConnect();
-	    pcon.menu();
 
-		VoteController.connect();
-		VoteController.selectByGno();
-//		VoteController.selectByGnoEnd();
-		
-		TeamController.connect();
-		TeamController.menu();
-	}
+		public static void main(String[] args) throws SQLException, IOException {
+				SoccerMenu mainMenu = new SoccerMenu();
+				PlayerController pcon = new PlayerController();
+				pcon.dbConnect();
+				TeamController.connect();
+				VoteController.connect();
+				playerStatController.connect();
+				gameResultController.connect();
+				mainMenu.soccerMenu();
+				pcon.close();
+				TeamController.close();
+				VoteController.close();
+				playerStatController.close();
+				gameResultController.close();
+				
+		}
+
 }
-
-
-
