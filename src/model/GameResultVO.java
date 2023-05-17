@@ -7,14 +7,14 @@ public class GameResultVO {
 	private String bteam; //B팀
 	private int bscore; // A팀 득점
 
-	public GameResultVO(int gno, String gdate, String ateam, int ascore, String bteam, int bscore) {
-		this.gno = gno;
-		this.gdate = gdate;
-		this.ateam = ateam;
-		this.ascore = ascore;
-		this.bteam = bteam;
-		this.bscore = bscore;
-	}
+//	public GameResultVO(int gno, String gdate, String ateam, int ascore, String bteam, int bscore) {
+//		this.gno = gno;
+//		this.gdate = gdate;
+//		this.ateam = ateam;
+//		this.ascore = ascore;
+//		this.bteam = bteam;
+//		this.bscore = bscore;
+//	}
 
 	public int getGno() {
 		return gno;
