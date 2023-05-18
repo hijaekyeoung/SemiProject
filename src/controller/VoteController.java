@@ -43,22 +43,6 @@ public class VoteController {
 		}
 	}
 	
-	public static void rollback() {
-		try {
-			conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void commit() {
-		try {
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static void selectByGno() throws SQLException {
 		pstmt = conn.prepareStatement(
 				"select g.ateam, v.avote, g.bteam, v.bvote from vote v join gameresult g on v.gno= g.gno where v.gno = ?");
