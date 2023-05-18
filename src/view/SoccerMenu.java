@@ -121,65 +121,73 @@ public class SoccerMenu {
 	
 	
 	// *//menu class
-		public static void gameresultMenu() throws SQLException {
+	public static void gameresultMenu() throws SQLException {
 
-			while (true) {
-				System.out.println("-----------------경기결과-----------------");
-				System.out.printf("|%-32s|\n","1. 일정 조회");
-				System.out.printf("|%-32s|\n","2. 경기 결과 등록");
-				System.out.printf("|%-32s|\n","3. 경기 일정 변경");
-				System.out.printf("|%-32s|\n","4. 경기 일정 추가");
-				System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-				System.out.println("------------------------------------------");
-				System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
-				switch (sc.nextInt()) {
-				case 1:
-					gameSelectMenu();
-					break; // (
-				case 2:
-					gameResultController.updateResult();
-					break;
-				case 3:
-					gameResultController.updateDate();
-					break;
-				case 4:
-					gameResultController.insertGame();
-					break;
-				case 8:
-					return;
+		while (true) {
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.일정 조회 [사용자]\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.경기 결과 등록 [관리자]\t%7s\n", "|", "|");
+			System.out.printf("%s\t3.경기 일정 변경 [관리자]\t%7s\n", "|", "|");
+			System.out.printf("%s\t4.경기 일정 추가[관리자]\t%7s\n", "|", "|");
+			System.out.printf("%s\t8.메인메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
+			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
+			switch (sc.nextInt()) {
+			case 1:
+				gameSelectMenu();
+				break; // (
+			case 2:
+				gameResultController.updateResult();
+				break;
+			case 3:
+				gameResultController.updateDate();
+				break;
+			case 4:
+				gameResultController.insertGame();
+				break;
+			case 8:
+				return;
 
-				}// switch
-			} // end while
-		}// menu end
+			}// switch
+		} // end while
+	}// menu end
 
-		public static void gameSelectMenu() throws SQLException {
+	public static void gameSelectMenu() throws SQLException {
 
-			
-			while (true) {
-				System.out.println("-----------------경기일정-----------------");
-				System.out.printf("|%-32s|\n","1. 모든 경기 일정　　　");
-				System.out.printf("|%-32s|\n","2. 팀 일정 조회　　　　");
-				System.out.printf("|%-32s|\n","3. 월별 일정 조회　　　");
-				System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-				System.out.println("------------------------------------------");
-				System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
-				switch (sc.nextInt()) {
-
-				case 1:
-					gameResultController.selectAll();
-					break;
-				case 2:
-					gameResultController.selectTeam();
-					break;
-				case 3:
-					gameResultController.selectMonth();
-					break;
-				case 8:
-					return;
-				}// switch
-			} // end while
-		}// menu end
 		
+		while (true) {
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.모든 경기 일정\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.팀별 경기 일정 \t%15s\n", "|", "|");
+			System.out.printf("%s\t3.월별 경기 일정 \t%15s\n", "|", "|");
+			System.out.printf("%s\t4.미진행 경기 일정 \t%15s\n", "|", "|");
+			System.out.printf("%s\t5.라운드별 경기 일정\t%15s\n", "|", "|");
+			System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
+			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
+			switch (sc.nextInt()) {
+
+			case 1:
+				gameResultController.selectAll();
+				break;
+			case 2:
+				gameResultController.selectTeam();
+				break;
+			case 3:
+				gameResultController.selectMonth();
+				break;
+			case 4:
+				gameResultController.selectWillplay(); // 미진행 경기 일정
+				break;
+			case 5:
+				gameResultController.selectRound();
+				break;
+			case 8:
+				return;
+			}// switch
+		} // end while
+	}// menu end
+	
 
 		public static void playerMenuList() {
 			System.out.println("---------------- 선수메뉴 ----------------");
