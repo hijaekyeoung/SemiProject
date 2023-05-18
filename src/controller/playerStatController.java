@@ -46,62 +46,6 @@ public class playerStatController {
 		}
 	}
 	
-	public static void menu() {
-		System.out.println("\n ============ PLAYER LIST ===========");
-		System.out.println("\t 0. commit");
-		System.out.println("\t 1. 선수 스탯 리스트");
-		System.out.println("\t 2. 선수 어시스트 순위");
-		System.out.println("\t 3. 아직 못함 ");
-		System.out.println("\t 4. 선수 스탯 리스트 삭제 ");
-		System.out.println("\t 5. 경기당 득점률 순위 ");
-		System.out.println("\t 6. 경기당 어시스트율 순위 ");
-		System.out.println("\t 8. 메인메뉴로 돌아가기 ");
-		System.out.println("\t 9. commit ");
-	}
-	
-	public static void playerStat() throws SQLException{
-		
-//		PlayerStatVO vo = new PlayerStatVO(0, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-		
-		
-		while(true) {
-			
-			System.out.println();
-			menu();
-			System.out.println();
-			System.out.println();
-			System.out.println("옵션 선택하세요.");
-			
-			switch(sc.nextInt()) {
-				case 0 : System.out.println("Commit 하시겠습니까? (Y/N)");
-						 System.out.println("안하시려면 Rollback 됩니다.");
-						 if(sc.next().equalsIgnoreCase("Y")) {
-							 
-							 conn.commit(); // 예외발생
-							 selectAll();
-						 }else {
-							 conn.rollback();
-							 selectAll();	 
-						 }
-				case 1: selectAll(); break;		 
-				case 2: selectAllAssists(); break;
-				
-				
-//				case 3: update(); break;	 
-				case 4: delete(); break;
-				case 5: selectAllByGoalsPerGame(); break;
-				case 6: selectAllByAssistsPerGame(); break;
-				
-				
-				case 8: return;
-				case 9: conn.commit();
-						System.out.println("성공적으로 완료 되었습니다.");
-			
-			}
-		}// end while
-	}
-	
-	
 	public static void selectAll() throws SQLException {
 //        rs = stmt.executeQuery("SELECT * FROM playerStat");
 	      
@@ -152,7 +96,7 @@ public class playerStatController {
 		
 
 	   
-	   private static void delete() throws SQLException {
+	   public static void delete() throws SQLException {
 		   		
 		      selectAll();
 		      System.out.println("삭제할 선수의 고유번호를 입력하세요.");

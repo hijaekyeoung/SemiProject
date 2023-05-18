@@ -10,7 +10,6 @@ import java.sql.Types;
 import java.util.Scanner;
 
 import dbConn.util.ConnectionSingletonHelper;
-import model.PlayerVO;
 
 public class PlayerController {
 	
@@ -21,6 +20,7 @@ public class PlayerController {
 	static PreparedStatement pstmtSearchByAge;
 	static ResultSet rs = null;
 	static Connection conn = null;
+
 
 	private String sqlInsert = "INSERT INTO PLAYER VALUES(?,?,?,?,?,?,?,?)";
 	private String sqlDelete = "DELETE FROM PLAYER WHERE PNO = ? ";
@@ -36,6 +36,7 @@ public class PlayerController {
 	private String sqlSearchByAge = "select p.pno,t.tname,p.uno,p.pname,p.height,"
 			+ "p.weight,p.age,p.position from player p, team t "
 			+ "where p.tcode = t.tcode and age between ? and ? order by age asc";
+
 	public void dbConnect() {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
@@ -104,7 +105,7 @@ public class PlayerController {
 			}
 		}
 	} 
-	// 「 ,」,『,』,┌,┐,┘,└,ㅈ,
+	
 	public void selectMenu() {
 		System.out.println("\n============ SELECT MENU ==============");
 		System.out.println("1. 구단 소속 선수목록");
