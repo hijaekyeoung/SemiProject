@@ -3,10 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.Scanner;
 
 import dbConn.util.ConnectionSingletonHelper;
@@ -20,7 +17,6 @@ public class PlayerController {
 	static PreparedStatement pstmtSearchByAge;
 	static ResultSet rs = null;
 	static Connection conn = null;
-
 
 	private String sqlInsert = "INSERT INTO PLAYER VALUES(?,?,?,?,?,?,?,?)";
 	private String sqlDelete = "DELETE FROM PLAYER WHERE PNO = ? ";
@@ -66,57 +62,6 @@ public class PlayerController {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
-	public static void playerMenu() {
-		System.out.println("\n============= PLAYER LIST =============");
-		System.out.println("1. 선수 전체 정보\t\t\t ");
-		System.out.println("2. 선수 정보 추가\t\t\t ");
-		System.out.println("3. 선수 정보 수정\t\t\t ");
-		System.out.println("4. 선수 정보 삭제\t\t\t ");
-		System.out.println("5. 특정 조건 검색\t\t\t ");
-		System.out.println("6. 메인메뉴로 돌아가기\t\t\t ");
-		System.out.println("=======================================");
-		System.out.print("메뉴선택 >> ");
-	}
-	
-	public void menu() throws SQLException {
-		
-		while(true) {
-			System.out.println();
-			playerMenu();
-			
-			switch(sc.nextInt()) {
-			case 1: 
-				selectAll();
-				break;
-			case 2:
-				insertPlayer();
-				break;
-			case 3:
-				updatePlayer();
-				break;
-			case 4:
-				deletePlayer();
-				break;
-			case 5:
-				selectOption();
-				break;
-			default:
-				return;
-			}
-		}
-	} 
-	
-	public void selectMenu() {
-		System.out.println("\n============ SELECT MENU ==============");
-		System.out.println("1. 구단 소속 선수목록");
-		System.out.println("2. 포지션 선수목록");
-		System.out.println("3. 나이범위로 해당 나이대 선수목록");
-		System.out.println("4. 선수메뉴로 돌아가기");
-		System.out.println("=======================================");
-		System.out.println();
-		System.out.print("메뉴선택 >> ");
-	}
-	
 	public void selectAll() {
 		try {
 			rs = pstmtSelectAll.executeQuery(sqlSelectAll);
@@ -220,28 +165,6 @@ public class PlayerController {
 			pstmtDelete.setInt(1, pno);
 			int result = pstmtDelete.executeUpdate();
 			System.out.println(result + "명의 선수가 은퇴하였습니다.");
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-
-	public void selectOption() {
-		try {
-			while(true) {
-				selectMenu();
-				
-				switch (sc.nextInt()){
-				case 1: 
-					searchByTcode();
-					break;
-				case 2:
-					searchByPosition();
-					break;
-				case 3:
-					searchByAge();
-					break;
-				case 4:
-					return;
-				}
-			}
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
