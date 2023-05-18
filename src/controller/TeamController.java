@@ -45,23 +45,6 @@ public class TeamController {
 		}
 	}
 
-	public static void rollback() {
-		try {
-			conn.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void commit() {
-		try {
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	// selectAll
 	public static void selectAll(int asc) throws SQLException {
 		
