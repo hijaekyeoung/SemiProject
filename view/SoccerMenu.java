@@ -9,6 +9,7 @@ import controller.TeamController;
 import controller.VoteController;
 import controller.gameResultController;
 import controller.playerStatController;
+import model.GameResultVO;
 
 public class SoccerMenu {
 	static Scanner sc = new Scanner(System.in);
@@ -18,14 +19,13 @@ public class SoccerMenu {
 	public void soccerMenu() throws SQLException, IOException {
 
 		while (true) {
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-35s|\n","1. 선수　　 　　");
-			System.out.printf("|%-35s|\n","2. 선수 스탯　　");
-			System.out.printf("|%-35s|\n","3. 구단　　 　　");
-			System.out.printf("|%-35s|\n","4. 경기 및 결과　");
-			System.out.printf("|%-35s|\n","5. 팬 투표　　　");
-			System.out.printf("|%-35s|\n","8. 프로그램 종료");
-			System.out.println("------------------------------------------");
+			System.out.println("---------------------------------------");
+			System.out.printf("%s\t1. 선수\t\t%15s\n", "|", "|");
+			System.out.printf("%s\t2. 선수스탯\t%15s\n", "|", "|");
+			System.out.printf("%s\t3. 구단\t\t%15s\n", "|", "|");
+			System.out.printf("%s\t4. 경기일정 및 결과\t%15s\n", "|", "|");
+			System.out.printf("%s\t5. 팬 투표\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 			switch (sc.nextInt()) {
 
@@ -55,14 +55,13 @@ public class SoccerMenu {
 	public static void voteMenu() throws SQLException, IOException {
 
 		while (true) {
-
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-35s|\n","1. 투표 진행 보기");
-			System.out.printf("|%-35s|\n","2. 경기 결과 보기");
-			System.out.printf("|%-35s|\n","3. 투표 하기　　 ");
-			System.out.printf("|%-35s|\n","4. 투표 추가하기 ");
-			System.out.printf("|%-35s|\n","8. 프로그램 종료");
-			System.out.println("------------------------------------------");
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.투표 진행 보기\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.경기 결과 보기\t%15s\n", "|", "|");
+			System.out.printf("%s\t3.투표 하기\t%15s\n", "|", "|");
+			System.out.printf("%s\t4.경기 추가하기\t%15s\n", "|", "|");
+			System.out.printf("%s\t8.메인메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 
 			switch (sc.nextInt()) {
@@ -91,13 +90,13 @@ public class SoccerMenu {
 	public static void teamMenu() throws SQLException, IOException {
 
 		while (true) {
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-32s|\n","1. 전체 보기　　　　　");
-			System.out.printf("|%-32s|\n","2. 특정 팀 보기　　　　");
-			System.out.printf("|%-32s|\n","3. 팀 정보 수정　　　　");
-			System.out.printf("|%-32s|\n","4. 팀 정보 갱신　　　　");
-			System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-			System.out.println("------------------------------------------");
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.전체 보기\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.특정 팀 보기\t%15s\n", "|", "|");
+			System.out.printf("%s\t3.팀 정보 수정\t%15s\n", "|", "|");
+			System.out.printf("%s\t4.팀 정보 갱신\t%15s\n", "|", "|");
+			System.out.printf("%s\t8.메인메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 			switch (sc.nextInt()) {
 			case 1:
@@ -124,13 +123,13 @@ public class SoccerMenu {
 		public static void gameresultMenu() throws SQLException {
 
 			while (true) {
-				System.out.println("------------------------------------------");
-				System.out.printf("|%-32s|\n","1. 일정 조회 [사용자]　　");
-				System.out.printf("|%-32s|\n","2. 경기 결과 등록 [관리자]");
-				System.out.printf("|%-32s|\n","3. 경기 일정 변경 [관리자]");
-				System.out.printf("|%-32s|\n","4. 경기 일정 추가[관리자] ");
-				System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-				System.out.println("------------------------------------------");
+				System.out.println("\n---------------------------------------");
+				System.out.printf("%s\t1.일정 조회 [사용자]\t%15s\n", "|", "|");
+				System.out.printf("%s\t2.경기 결과 등록 [관리자]\t%7s\n", "|", "|");
+				System.out.printf("%s\t3.경기 일정 변경 [관리자]\t%7s\n", "|", "|");
+				System.out.printf("%s\t4.경기 일정 추가[관리자]\t%7s\n", "|", "|");
+				System.out.printf("%s\t8.메인메뉴로 돌아가기\t%15s\n", "|", "|");
+				System.out.println("---------------------------------------");
 				System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 				switch (sc.nextInt()) {
 				case 1:
@@ -156,12 +155,12 @@ public class SoccerMenu {
 
 			
 			while (true) {
-				System.out.println("------------------------------------------");
-				System.out.printf("|%-32s|\n","1. 모든 경기 일정　　　");
-				System.out.printf("|%-32s|\n","2. 팀 일정 조회　　　　");
-				System.out.printf("|%-32s|\n","3. 월별 일정 조회　　　");
-				System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-				System.out.println("------------------------------------------");
+				System.out.println("\n---------------------------------------");
+				System.out.printf("%s\t1.모든 경기 일정\t%15s\n", "|", "|");
+				System.out.printf("%s\t2.팀 일정 조회\t%15s\n", "|", "|");
+				System.out.printf("%s\t3.월별 일정 조회\t%15s\n", "|", "|");
+				System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+				System.out.println("---------------------------------------");
 				System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 				switch (sc.nextInt()) {
 
@@ -182,14 +181,14 @@ public class SoccerMenu {
 		
 
 		public static void playerMenuList() {
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-32s|\n","1. 선수 리스트　　　　");
-			System.out.printf("|%-32s|\n","2. 선수 정보 추가　　　");
-			System.out.printf("|%-32s|\n","3. 선수 정보 수정　　　");
-			System.out.printf("|%-32s|\n","4. 선수 정보 삭제　　　");
-			System.out.printf("|%-32s|\n","5. 특정 조건 검색　　　");
-			System.out.printf("|%-32s|\n","8. 경기메뉴로 돌아가기");
-			System.out.println("------------------------------------------");
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.선수 리스트\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.선수 정보 추가\t%15s\n", "|", "|");
+			System.out.printf("%s\t3.선수 정보 수정\t%15s\n", "|", "|");
+			System.out.printf("%s\t4.선수 정보 삭제\t%15s\n", "|", "|");
+			System.out.printf("%s\t5.특정 조건 검색\t%15s\n", "|", "|");
+			System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 		}
 		public void playerMenu() throws SQLException {
@@ -220,12 +219,13 @@ public class SoccerMenu {
 		}
 		
 		public void playerSelectMenu() {
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-29s|\n","1. 특정 팀에 소속된 선수목록　");
-			System.out.printf("|%-29s|\n","2. 특정 포지션에 속한 선수목록");
-			System.out.printf("|%-29s|\n","3. 특정 나이대에 속한 선수목록");
-			System.out.printf("|%-29s|\n","4. 선수메뉴로 돌아가기 　　　");
-			System.out.println("------------------------------------------");
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.특정 팀에 소속된 선수목록\t%7s\n", "|", "|");
+			System.out.printf("%s\t2.특정 포지션에 속한 선수목록\t%7s\n", "|", "|");
+			System.out.printf("%s\t3.특정 나이대에 속한 선수목록\t%7s\n", "|", "|");
+			System.out.printf("%s\t4.선수메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 		}
 		
@@ -253,15 +253,15 @@ public class SoccerMenu {
 		
 		
 		public static void plyaerStatMenu() {
-			System.out.println("------------------------------------------");
-			System.out.printf("|%-29s|\n","1.선수 스탯 리스트　　　　　 ");
-			System.out.printf("|%-29s|\n","2.선수 어시스트 순위　　　　");
-			System.out.printf("|%-29s|\n","3. 특정 나이대에 속한 선수목록");
-			System.out.printf("|%-29s|\n","4.선수 스탯 리스트 삭제　　　");
-			System.out.printf("|%-29s|\n","5.경기당 득점률 순위　　　　");
-			System.out.printf("|%-29s|\n","6.경기당 어시스트율 순위　　");
-			System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
-			System.out.println("------------------------------------------");
+			System.out.println("\n---------------------------------------");
+			System.out.printf("%s\t1.선수 스탯 리스트\t%15s\n", "|", "|");
+			System.out.printf("%s\t2.선수 어시스트 순위\t%15s\n", "|", "|");
+			System.out.printf("%s\t3.아직 못함\t%15s\n", "|", "|");
+			System.out.printf("%s\t4.선수 스탯 리스트 삭제\t%7s\n", "|", "|");
+			System.out.printf("%s\t5.경기당 득점률 순위\t%15s\n", "|", "|");
+			System.out.printf("%s\t6.경기당 어시스트율 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 		}
 		
