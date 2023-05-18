@@ -255,7 +255,7 @@ public class SoccerMenu {
 		}
 		
 		
-		public static void plyaerStatMenu() {
+		public static void playerStatMenu() {
 			System.out.println("------------------------------------------");
 			System.out.printf("|%-29s|\n","1.선수 스탯 리스트　　　　　 ");
 			System.out.printf("|%-29s|\n","2.선수 어시스트 순위　　　　");
@@ -274,7 +274,7 @@ public class SoccerMenu {
 			
 			
 			while(true) {
-				plyaerStatMenu();
+				playerStatMenu();
 				
 				switch(sc.nextInt()) {
 					

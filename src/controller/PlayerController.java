@@ -123,6 +123,7 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
+				
 				int len = 14 - (pname.getBytes().length - 1) / 3;
 				int len2 = 10 - (tcode - 1) / 3;
 				System.out.println(String.format("%-8d | %-7d | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tcode, uno, pname, position, height, weight, age));
