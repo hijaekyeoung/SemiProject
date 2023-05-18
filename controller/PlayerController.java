@@ -64,6 +64,32 @@ public class PlayerController {
 			ConnectionSingletonHelper.close(conn);
 		} catch (Exception e) { e.printStackTrace(); }
 	}
+	public void selectAll() {
+	      try {
+	         rs = pstmtSelectAll.executeQuery(sqlSelectAll);
+	         
+	         int cnt = 0;
+	         System.out.println("선수번호 | \t팀코드 | \t등번호 | \t이름 | \t포지션 | \t키 | \t몸무게 | \t나이");
+	         System.out.println("-----------------------------------------------------------------------");
+	         while(rs.next()) {
+	            int pno = rs.getInt("pno");
+	            int tcode = rs.getInt("tcode");
+	            int uno = rs.getInt("uno");
+	            String pname = rs.getString("pname");
+	            int height = rs.getInt("height");
+	            int weight = rs.getInt("weight");
+	            int age = rs.getInt("age");
+	            String position = rs.getString("position");
+	            
+	            System.out.println(pno + " | \t" + tcode + " | \t" + uno + " | \t" + pname + " | \t" 
+	                  + position + " | \t" + height + " | \t" + weight + " | \t" + age);
+	            System.out.println("-----------------------------------------------------------------------");
+	            cnt++;
+	         }
+	         System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
+	         
+	      } catch (Exception e) { e.printStackTrace(); }
+	   }
 	
 	public void insertPlayer() {
 		try {
