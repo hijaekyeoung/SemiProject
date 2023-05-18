@@ -9,7 +9,6 @@ import controller.TeamController;
 import controller.VoteController;
 import controller.gameResultController;
 import controller.playerStatController;
-import model.GameResultVO;
 
 public class SoccerMenu {
 	static Scanner sc = new Scanner(System.in);
