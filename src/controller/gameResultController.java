@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+
 import dbConn.util.ConnectionSingletonHelper;
-import model.GameResultVO;
 
 public class gameResultController { // controller
 
@@ -43,9 +43,9 @@ public class gameResultController { // controller
 
 	public static void selectAll() throws SQLException {
 		rs = stmt.executeQuery("select * " + "from gameresult order by GDATE");
-		System.out.println("----------------- 모 든   경 기   일 정 -------------------");
-		System.out.println("   날짜    |경기 번호|   홈 팀    |   스코어    |   원정팀");
-		System.out.println("-----------------------------------------------------------");
+		System.out.println("───────────────── 모 든   경 기   일 정 ───────────────────");
+		System.out.println("   날짜    │경기 번호│   홈 팀    │   스코어    │   원정팀");
+		System.out.println("───────────────────────────────────────────────────────────");
 		while (rs.next()) {
 			Date gdate = rs.getDate("GDATE");	
 			int gno = rs.getInt("GNO");
@@ -58,9 +58,9 @@ public class gameResultController { // controller
 			if (rs.getString("ateam").equals("수원FC")) {len =6;};
 			
 			if (ascore != null) {
-				System.out.println(gdate+" |  NO."+String.format("%-3d |  %-" + len + "s  |  [%s] : [%s]  |  %-" + len + "s", gno, ateam, ascore, bscore, bteam) );	
+				System.out.println(gdate+" │  NO."+String.format("%-3d │  %-" + len + "s  │  [%s] : [%s]  │  %-" + len + "s", gno, ateam, ascore, bscore, bteam) );	
 			} 
-			else System.out.println(gdate+" |  NO."+String.format("%-3d |  %-" + len + "s  |  경기 예정  |  %-" + len + "s", gno, ateam, bteam) );
+			else System.out.println(gdate+" │  NO."+String.format("%-3d │  %-" + len + "s  │  경기 예정  │  %-" + len + "s", gno, ateam, bteam) );
 		}
 //		selectMenu();
 		return;
@@ -70,39 +70,41 @@ public class gameResultController { // controller
 		
 		System.out.println("팀 이름을 입력해주세요.");
 		String teamchoice = sc.next();
-		System.out.println("------------- 팀 별   경 기   일 정 -------------");
-		System.out.println("   날짜    |   홈 팀    |   스코어    |   원정팀");
-		System.out.println("-------------------------------------------------");
 		rs = stmt.executeQuery("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE " + "from gameresult " + "where ATEAM = + "
 				+ "'" + teamchoice + "'" + "or BTEAM =" + "'" + teamchoice + "'" + "order by GDATE");
-
+		System.out.println("──────────── 팀 별   경 기   일 정 ────────────");
+		System.out.println("   날짜    │   홈 팀    │   스코어    │  원정팀   ");
+		System.out.println("───────────────────────────────────────────────");
+		
 		while (rs.next()) {
-			Date gdate = rs.getDate("GDATE");
-			String ateam = rs.getString("ATEAM");
-			String ascore = rs.getString("ASCORE");
-			String bteam = rs.getString("BTEAM");
-			String bscore = rs.getString("BSCORE");
-			
-			int len = 7 - (ateam.getBytes().length - 1) / 3;
-			if (rs.getString("ateam").equals("수원FC")) {len =6;};
-			
-			if (ascore != null) {
-				System.out.println(gdate+" |  NO."+String.format("%-3d |  %-" + len + "s  |  [%s] : [%s]  |  %-" + len + "s", ateam, ascore, bscore, bteam) );	
-			} else
-				System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
-		}
+				Date gdate = rs.getDate("GDATE");
+				String ateam = rs.getString("ATEAM");
+				String ascore = rs.getString("ASCORE");
+				String bteam = rs.getString("BTEAM");
+				String bscore = rs.getString("BSCORE");
+				
+				int len = 7 - (ateam.getBytes().length - 1) / 3;
+				if (rs.getString("ateam").equals("수원FC")) {len =6;};
+				
+				if (ascore != null) {
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  [%s] : [%s]  │  %-" + len + "s", ateam, ascore, bscore, bteam) );	
+				} else
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );	
+			}
 		return;
 	}// selectTeam end
 
 	public static void selectMonth() throws SQLException {
-		System.out.println("=== 월별 경기 조회 === \n");
 		System.out.println("조회하실 월을 입력해주세요.");
-//			String choicemonth = sc.next();
 		try {
 			pstmt = conn.prepareStatement("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE" + "  from gameresult"
 					+ "  where to_date(GDATE, 'YY/MM/DD') like '23/%'||?||'/%'" + "  order by GDATE");
 			pstmt.setInt(1, sc.nextInt());
+			
 			ResultSet rs = pstmt.executeQuery();
+			System.out.println("──────────── 월 별   경 기   일 정 ────────────");
+			System.out.println("   날짜    │   홈 팀    │   스코어    │  원정팀   ");
+			System.out.println("───────────────────────────────────────────────");
 			while (rs.next()) {
 				Date gdate = rs.getDate("GDATE");
 				String ateam = rs.getString("ATEAM");
@@ -110,40 +112,43 @@ public class gameResultController { // controller
 				String bteam = rs.getString("BTEAM");
 				String bscore = rs.getString("BSCORE");
 
+				int len = 7 - (ateam.getBytes().length - 1) / 3;
+				if (rs.getString("ateam").equals("수원FC")) {len =6;};
+				
 				if (ascore != null) {
-					System.out.println(gdate + " " + ateam + " [" + ascore + "]" + " : " + "[" + bscore + "] " + bteam);
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  [%s] : [%s]  │  %-" + len + "s", ateam, ascore, bscore, bteam) );	
 				} else
-					System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );	
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) { e.printStackTrace(); }
 		return;
 	}// selectMonth end
 	
 	public static void selectWillplay() throws SQLException {
-		System.out.println("-=-=-=-=-= 미진행 경기 일정 =-=-=-=-=-\n");
+		System.out.println("────────── 미 진 행    경 기    일 정 ───────────");
 		try {
 			rs = stmt.executeQuery("SELECT GDATE, ATEAM, ASCORE, BTEAM, BSCORE FROM GAMERESULT WHERE ASCORE IS NULL ORDER BY GDATE");
 			while (rs.next()) {
 				Date gdate = rs.getDate("GDATE");
 				String ateam = rs.getString("ATEAM");
 				String bteam = rs.getString("BTEAM");
-
-				System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
+				
+				int len = 7 - (ateam.getBytes().length - 1) / 3;
+				if (rs.getString("ateam").equals("수원FC")) {len =6;};
+				
+				System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return;
 	}
 
 	public static void selectRound() throws SQLException {
-		System.out.println("-=-=-=-=-= 라운드별 경기 조회 =-=-=-=-=-\n");
 		System.out.println("원하는 라운드를 입력해주세요");
 		int W= sc.nextInt(); 
-				
 		try {
 			rs = stmt.executeQuery("SELECT * FROM GAMERESULT WHERE GDATE BETWEEN TO_DATE(TO_DATE('23/02/17')+(7*"+W+"),'YY/MM/DD') AND TO_DATE(TO_DATE('23/02/17')+(7*("+(W+1)+")),'YY/MM/DD')");
 			System.out.println(W +"라운드의 경기 결과입니다");
+			System.out.println("───────── 라 운 드 별     경 기    일 정 ───────────");
 			while (rs.next()) {
 				Date gdate = rs.getDate("GDATE");
 				String ateam = rs.getString("ATEAM");
@@ -151,10 +156,13 @@ public class gameResultController { // controller
 				String bteam = rs.getString("BTEAM");
 				String bscore = rs.getString("BSCORE");
 				
+				int len = 7 - (ateam.getBytes().length - 1) / 3;
+				if (rs.getString("ateam").equals("수원FC")) {len =6;};
+				
 				if (ascore != null) {
-					System.out.println(gdate + " " + ateam + " [" + ascore + "]" + " : " + "[" + bscore + "] " + bteam);
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  [%s] : [%s]  │  %-" + len + "s", ateam, ascore, bscore, bteam) );	
 				} else
-					System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
+					System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );	
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return;
