@@ -122,8 +122,8 @@ public class PlayerController {
 			rs = pstmtSelectAll.executeQuery(sqlSelectAll);
 			
 			int cnt = 0;
-			System.out.println("선수번호 | \t팀코드 | \t등번호 | \t이름 | \t포지션 | \t키 | \t몸무게 | \t나이");
-			System.out.println("-----------------------------------------------------------------------");
+			System.out.println(String.format("%-4s | %-4s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀코드","등번호","이름","포지션","키","몸무게","나이"));
+			System.out.println("-----------------------------------------------------------------------------------");
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				int tcode = rs.getInt("tcode");
@@ -134,9 +134,10 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				System.out.println(pno + " | \t" + tcode + " | \t" + uno + " | \t" + pname + " | \t" 
-						+ position + " | \t" + height + " | \t" + weight + " | \t" + age);
-				System.out.println("-----------------------------------------------------------------------");
+				int len = 14 - (pname.getBytes().length - 1) / 3;
+				int len2 = 10 - (tcode - 1) / 3;
+				System.out.println(String.format("%-8d | %-7d | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tcode, uno, pname, position, height, weight, age));
+				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
 			}
 			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
@@ -254,9 +255,8 @@ public class PlayerController {
 			pstmtSearchByTcode.setString(1, sc.next());
 			rs = pstmtSearchByTcode.executeQuery();
 			int cnt = 0;
-			
-			System.out.println("선수번호 | \t팀 | \t등번호 | \t이름 | \t포지션 | \t키 | \t몸무게 | \t나이");
-			System.out.println("-----------------------------------------------------------------------");
+			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
+			System.out.println("-----------------------------------------------------------------------------------");
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname = rs.getString("tname");
@@ -267,9 +267,11 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				System.out.println(pno + " | \t" + tname + " | \t" + uno + " | \t" + pname + " | \t" 
-						+ position + " | \t" + height + " | \t" + weight + " | \t" + age);
-				System.out.println("-----------------------------------------------------------------------");
+				
+				int len = 14 - (pname.getBytes().length - 1) / 3;
+				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
+				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
 			}
 			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
@@ -284,9 +286,8 @@ public class PlayerController {
 			pstmtSearchByPosition.setString(1, position);
 			rs = pstmtSearchByPosition.executeQuery();
 			int cnt = 0;
-			
-			System.out.println("선수번호 | \t팀 | \t등번호 | \t이름 | \t포지션 | \t키 | \t몸무게 | \t나이");
-			System.out.println("-----------------------------------------------------------------------");
+			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
+			System.out.println("-----------------------------------------------------------------------------------");
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname = rs.getString("tname");
@@ -297,9 +298,11 @@ public class PlayerController {
 				int weight = rs.getInt("weight");
 				int age = rs.getInt("age");
 				position = rs.getString("position");
-				System.out.println(pno + " | \t" + tname + " | \t" + uno + " | \t" + pname + " | \t" 
-						+ position + " | \t" + height + " | \t" + weight + " | \t" + age);
-				System.out.println("-----------------------------------------------------------------------");
+				
+				int len = 14 - (pname.getBytes().length - 1) / 3;
+				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
+				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
 			}
 			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
@@ -317,9 +320,8 @@ public class PlayerController {
 			pstmtSearchByAge.setInt(2, endAge);
 			rs = pstmtSearchByAge.executeQuery();
 			int cnt = 0;
-			
-			System.out.println("선수번호 | \t팀 | \t등번호 | \t이름 | \t포지션 | \t키 | \t몸무게 | \t나이");
-			System.out.println("-----------------------------------------------------------------------");
+			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
+			System.out.println("-----------------------------------------------------------------------------------");
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname =rs.getString("tname");
@@ -329,10 +331,12 @@ public class PlayerController {
 				int weight = rs.getInt("weight");
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
-				System.out.println(pno + " | \t" + tname + " | \t" + uno + " | \t" + pname + " | \t" 
-						+ position + " | \t" + height + " | \t" + weight + " | \t" + age);
+				
+				int len = 14 - (pname.getBytes().length - 1) / 3;
+				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
+				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
-				System.out.println("-----------------------------------------------------------------------");
 			}
 			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
 			
