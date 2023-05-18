@@ -76,14 +76,16 @@ public class gameResultController { // controller
 
 	public static void selectMenu() throws SQLException {
 
-		System.out.println("\n-=-=-=-=-= 일정 조회 =-=-=-=-=-");
-		System.out.println("\t 1. 모든 경기 일정 ");
-		System.out.println("\t 2. 팀 일정 조회");
-		System.out.println("\t 3. 월별 일정 조회 ");
-		System.out.println("\t 4. 경기메뉴로 돌아가기 ");
-
-		System.out.println("\t >> 원하는 메뉴 선택하세요. ");
+		
 		while (true) {
+			
+			System.out.println("\n-=-=-=-=-= 일정 조회 =-=-=-=-=-");
+			System.out.println("\t 1. 모든 경기 일정 ");
+			System.out.println("\t 2. 팀 일정 조회");
+			System.out.println("\t 3. 월별 일정 조회 ");
+			System.out.println("\t 4. 경기메뉴로 돌아가기 ");
+
+			System.out.println("\t >> 원하는 메뉴 선택하세요. ");
 			switch (sc.nextInt()) {
 
 			case 1:
@@ -91,6 +93,7 @@ public class gameResultController { // controller
 				break;
 			case 2:
 				selectTeam();
+				break;
 			case 3:
 				selectMonth();
 				break;
@@ -104,7 +107,7 @@ public class gameResultController { // controller
 		rs = stmt.executeQuery("select * " + "from gameresult order by GDATE");
 
 		while (rs.next()) {
-			Date gdate = rs.getDate("GDATE");
+			Date gdate = rs.getDate("GDATE");	
 			int gno = rs.getInt("GNO");
 			String ateam = rs.getString("ATEAM");
 			String ascore = rs.getString("ASCORE");
@@ -118,7 +121,8 @@ public class gameResultController { // controller
 			} else
 				System.out.println(gdate + " NO." + gno + " " + ateam + " [경기 예정] " + bteam);
 		}
-		selectMenu();
+//		selectMenu();
+		return;
 	}// selectAll
 
 	public static void selectTeam() throws SQLException {
