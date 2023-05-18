@@ -9,6 +9,7 @@ import controller.TeamController;
 import controller.VoteController;
 import controller.gameResultController;
 import controller.playerStatController;
+import model.GameResultVO;
 
 public class SoccerMenu {
 	static Scanner sc = new Scanner(System.in);
@@ -124,6 +125,7 @@ public class SoccerMenu {
 		public static void gameresultMenu() throws SQLException {
 
 			while (true) {
+
 				System.out.println("-----------------경기결과-----------------");
 				System.out.printf("|%-32s|\n","1. 일정 조회");
 				System.out.printf("|%-32s|\n","2. 경기 결과 등록");

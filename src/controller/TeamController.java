@@ -140,7 +140,8 @@ public class TeamController {
 //	}// end insert
 
 	// update
-	public static void update() throws SQLException {
+
+	public static void update()  {
 		System.out.println("수정할 팀을 입력해주세요. : ");
 		String tname = sc.next();
 
@@ -192,11 +193,12 @@ public class TeamController {
 		int tlose1 = rs.getInt(3);
 		int tscore1 = rs.getInt(4);
 		int conceded1 = rs.getInt(5);
-
+		
 		pstmt = conn.prepareStatement("SELECT TDRAW, TWIN, TLOSE, TSCORE, CONCEDED FROM TEAM WHERE TNAME = ?");
 		pstmt.setString(1, tname2);
 		rs = pstmt.executeQuery();
 		rs.next();
+
 		int tdraw2 = rs.getInt(1);
 		int twin2 = rs.getInt(2);
 		int tlose2 = rs.getInt(3);
@@ -229,6 +231,7 @@ public class TeamController {
 			pstmt.setString(6, tname1);
 			int result = pstmt.executeUpdate();
 
+
 			pstmt = conn.prepareStatement(
 					"UPDATE TEAM SET TWIN = ?, TDRAW = ?, TLOSE = ?, TSCORE =?, CONCEDED =?  WHERE TNAME = ?");
 			pstmt.setInt(1, twin2);
@@ -238,7 +241,7 @@ public class TeamController {
 			pstmt.setInt(5, conceded2);
 			pstmt.setString(6, tname2);
 			result += pstmt.executeUpdate();
-
+			
 			System.out.println(result + "개 데이터가 변경 되었습니다.");
 
 		} catch (Exception e) {
@@ -263,7 +266,6 @@ public class TeamController {
 //			e.printStackTrace();
 //		}
 //	}
-
 	public static void selectByTname() throws SQLException {
 		pstmt = conn.prepareStatement(
 				"SELECT TNAME, TWIN, TDRAW, TLOSE, TSCORE ,CONCEDED, (TSCORE-CONCEDED) AS GD FROM TEAM WHERE TNAME = ?");

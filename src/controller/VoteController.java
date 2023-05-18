@@ -75,7 +75,7 @@ public class VoteController {
 			System.out.println("투표가 없는 경기 입니다.");
 			return;
 		}
-		
+
 		int len1 = 8; int len2 = 8;
 		if(rs.getString("ateam").equals("수원삼성")) { len1 = 6; }
 		if(rs.getString("bteam").equals("수원삼성")) { len2 = 6; }
@@ -83,7 +83,6 @@ public class VoteController {
 		System.out.println("----------------------------------------------------------------------------------------");
 		System.out.printf(" %-"+len1+"s | %-13s | %-12s | %-"+len2+"s | %-13s | %-12s |\n", rs.getString("ateam"), rs.getInt("avote"), rs.getInt("ascore"), rs.getString("bteam") ,rs.getInt("bvote"),rs.getInt("bscore"));
 		System.out.println("----------------------------------------------------------------------------------------");
-
 	}
 
 	public static void update() throws SQLException { // 투표
