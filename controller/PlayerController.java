@@ -3,7 +3,6 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -18,7 +17,6 @@ public class PlayerController {
 	static PreparedStatement pstmtSearchByAge;
 	static ResultSet rs = null;
 	static Connection conn = null;
-
 
 	private String sqlInsert = "INSERT INTO PLAYER VALUES(?,?,?,?,?,?,?,?)";
 	private String sqlDelete = "DELETE FROM PLAYER WHERE PNO = ? ";
