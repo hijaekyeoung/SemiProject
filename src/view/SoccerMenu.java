@@ -252,15 +252,23 @@ public class SoccerMenu {
 		}
 		
 		
-		public static void plyaerStatMenu() {
+		public static void playerStatMenu() {
 			System.out.println("\n---------------------------------------");
 			System.out.printf("%s\t1.선수 스탯 리스트\t%15s\n", "|", "|");
-			System.out.printf("%s\t2.선수 어시스트 순위\t%15s\n", "|", "|");
-			System.out.printf("%s\t3.아직 못함\t%15s\n", "|", "|");
-			System.out.printf("%s\t4.선수 스탯 리스트 삭제\t%7s\n", "|", "|");
+			System.out.printf("%s\t2.선수 스탯 업데이트\t%15s\n", "|", "|");
+			System.out.printf("%s\t3.선수 스탯 리스트 삭제\t%7s\n", "|", "|");
+			System.out.printf("%s\t4.선수 어시스트 순위\t%15s\n", "|", "|");
 			System.out.printf("%s\t5.경기당 득점률 순위\t%15s\n", "|", "|");
 			System.out.printf("%s\t6.경기당 어시스트율 순위\t%7s\n", "|", "|");
-			System.out.printf("%s\t8.경기메뉴로 돌아가기\t%15s\n", "|", "|");
+			
+			System.out.printf("%s\t7.경기당 슈팅수 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t8.경기당 유효슈팅 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t9.경기당 파울 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t10.경기당 옐로우 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t11.경기당 레드카드 순위\t%7s\n", "|", "|");
+			System.out.printf("%s\t12.경기당 오프사이드 순위\t%7s\n", "|", "|");
+			
+			System.out.printf("%s\t13.메인메뉴로 돌아가기\t%15s\n", "|", "|");
 			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 		}
@@ -271,17 +279,21 @@ public class SoccerMenu {
 			
 			
 			while(true) {
-				plyaerStatMenu();
+				playerStatMenu();
 				
 				switch(sc.nextInt()) {
 					
-					case 1: playerStatController.selectAll(); break;		 
-					case 2: playerStatController.selectAllAssists(); break;
-//					case 3: update(); break;	 
-					case 4: playerStatController.delete(); break;
+					case 1: playerStatController.selectAll(); break;	
+					case 2: playerStatController.playerStatUpdate(); break;
+					case 3: playerStatController.delete(); break;
+					case 4: playerStatController.selectAllAssists(); break;
 					case 5: playerStatController.selectAllByGoalsPerGame(); break;
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
+					
+					
 					case 8: return;
+					
+					
 
 				}
 			}// end while
