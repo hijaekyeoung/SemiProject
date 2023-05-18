@@ -3,7 +3,7 @@ package model;
 public class TeamVO {
 	private int tcode,twin, tdraw, tlose, tscore, tconceded; // 팀 고유번호 ,승, 무, 패, 득점, 실점
 	private String tname; // 팀명
-	private int gd; // 득실차
+	private int gd,trank; // 득실차, 순위
 	
 	public int getGd() {
 		return gd;
@@ -16,6 +16,12 @@ public class TeamVO {
 	}
 	public void setTcode(int tcode) {
 		this.tcode = tcode;
+	}
+	public int getTrank() {
+		return trank;
+	}
+	public void setTrank(int trank) {
+		this.trank = trank;
 	}
 	public String getTname() {
 		return tname;

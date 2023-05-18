@@ -1,4 +1,4 @@
-package controller;
+	package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,9 +54,14 @@ public class VoteController {
 			System.out.println("투표가 없는 경기입니다.");
 			return;
 		}
-
-		System.out.println("Ateam : " + rs.getString("ateam") + "\tAvote : " + rs.getInt("avote") + "\tBteam : "
-				+ rs.getString("bteam") + "\tBvote : " + rs.getInt("bvote"));
+		
+		int len1 = 8; int len2 = 8;
+		if(rs.getString("ateam").equals("수원삼성")) { len1 = 6; }
+		if(rs.getString("bteam").equals("수원삼성")) { len2 = 6; }
+		System.out.printf(" %-10s | %-10s | %-10s | %-10s |\n", "Home Team", "Hoem 득표수", "Away Team", "Away 득표수");
+		System.out.println("-----------------------------------------------------------");
+		System.out.printf(" %-"+len1+"s | %-13s | %-"+len2+"s | %-13s |\n", rs.getString("ateam"), rs.getInt("avote"), rs.getString("bteam") ,rs.getInt("bvote"));
+		System.out.println("-----------------------------------------------------------");
 	}
 
 	public static void selectByGnoEnd() throws SQLException { // 경기 결과가 나온 이후
@@ -71,9 +76,13 @@ public class VoteController {
 			return;
 		}
 
-		System.out.println("Ateam : " + rs.getString("ateam") + "\tAvote : " + rs.getInt("avote") + "\tAscore : "
-				+ rs.getInt("ascore") + "\tBteam : " + rs.getString("bteam") + "\tBvote : " + rs.getInt("bvote")
-				+ "\tBscore : " + rs.getInt("bscore"));
+		int len1 = 8; int len2 = 8;
+		if(rs.getString("ateam").equals("수원삼성")) { len1 = 6; }
+		if(rs.getString("bteam").equals("수원삼성")) { len2 = 6; }
+		System.out.printf(" %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Home Team", "Hoem 득표수", "Home 득점", "Away Team", "Away 득표수", "Away 득점");
+		System.out.println("----------------------------------------------------------------------------------------");
+		System.out.printf(" %-"+len1+"s | %-13s | %-12s | %-"+len2+"s | %-13s | %-12s |\n", rs.getString("ateam"), rs.getInt("avote"), rs.getInt("ascore"), rs.getString("bteam") ,rs.getInt("bvote"),rs.getInt("bscore"));
+		System.out.println("----------------------------------------------------------------------------------------");
 	}
 
 	public static void update() throws SQLException { // 투표
