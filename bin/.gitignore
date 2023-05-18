@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 /controller/
 /dbConn/
 /src/
+=======
+/lib/
+/controller/
+/dbConn/
+/model/
+>>>>>>> fb96b691f002ff811ef3f47f0291573aac2ef3bb
 /view/

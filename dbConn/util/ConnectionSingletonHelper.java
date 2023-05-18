@@ -18,6 +18,7 @@ public class ConnectionSingletonHelper {
       try {
          Class.forName("oracle.jdbc.OracleDriver");
 
+<<<<<<< HEAD:dbConn/util/ConnectionSingletonHelper.java
          conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "project", "oracle");
 
       } catch (Exception e) {
@@ -27,6 +28,20 @@ public class ConnectionSingletonHelper {
       }
    }
 
+	public static Connection getConnection() {
+		if (conn != null) {
+			return conn;
+		}
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "c##project", "oracle");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			return conn;
+		}
+	}
+>>>>>>> fb96b691f002ff811ef3f47f0291573aac2ef3bb:src/dbConn/util/ConnectionSingletonHelper.java
 
 	public static void close(Connection conn) {
 		try {

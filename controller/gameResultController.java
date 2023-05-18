@@ -37,76 +37,11 @@ public class gameResultController { // controller
  		} catch (Exception e) {e.printStackTrace();}
 	}//close end
 
-	// *//menu class
-	public static void gameresultMenu() throws SQLException {
-		GameResultVO vo = new GameResultVO();
-
-		while (true) {
-			System.out.println("\n-=-=-=-=-= 메뉴 선택 =-=-=-=-=-");
-			System.out.println("\t 1. 일정 조회 [사용자] ");
-			System.out.println("\t 2. 경기 결과 등록 [관리자]");
-			System.out.println("\t 3. 경기 일정 변경 [관리자]");
-			System.out.println("\t 4. 경기 일정 추가[관리자]");
-			System.out.println("\t 5. 메인메뉴로 돌아가기");
-			System.out.println("\t >> 원하는 메뉴 선택하세요. ");
-			System.out.println();
-			switch (sc.nextInt()) {
-			case 1:
-				selectMenu();
-				break; // (
-			case 2:
-				selectWillplay(); updateResult();
-				break;
-			case 3:
-				selectWillplay(); updateDate();
-				break;
-			case 4:
-				selectWillplay(); insertGame();
-				break;
-			case 5:
-				return;
-			}// switch
-		} // end while	
-	}// menu end
-
-	public static void selectMenu() throws SQLException {
-		while (true) {
-			System.out.println("\n-=-=-=-=-= 일정 조회 =-=-=-=-=-");
-			System.out.println("\t 1. 모든 경기 일정 ");
-			System.out.println("\t 2. 팀 일정 조회 ");
-			System.out.println("\t 3. 월별 일정 조회 ");
-			System.out.println("\t 4. 미진행 일정 조회 ");
-			System.out.println("\t 5. 라운드별 일정 조회  ");
-			System.out.println("\t 6. 경기메뉴로 돌아가기 ");
-			System.out.println("\t >> 원하는 메뉴 선택하세요. ");
-			
-			switch (sc.nextInt()) {
-
-			case 1:
-				selectAll();
-				break;
-			case 2:
-				selectTeam();
-			case 3:
-				selectMonth();
-				break;
-			case 4:
-				selectWillplay();
-				break;
-			case 5:
-				selectRound();
-				break;
-			case 6:
-				return;
-			}// switch
-		} // end while
-	}// menu end
-
 	public static void selectAll() throws SQLException {
 		rs = stmt.executeQuery("select * " + "from gameresult order by GDATE");
 
 		while (rs.next()) {
-			Date gdate = rs.getDate("GDATE");
+			Date gdate = rs.getDate("GDATE");	
 			int gno = rs.getInt("GNO");
 			String ateam = rs.getString("ATEAM");
 			String ascore = rs.getString("ASCORE");

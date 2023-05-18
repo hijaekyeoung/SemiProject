@@ -1,8 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,13 +18,13 @@ public class TeamController {
 	static ResultSet rs = null;
 	static PreparedStatement pstmt = null;
 	static Connection conn = null;
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 	// connect
 	public static void connect() {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
+			conn.setAutoCommit(false); // 자동 커밋 끄기
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,48 +42,6 @@ public class TeamController {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void menu() throws SQLException, IOException { 
-		
-		while(true) {
-			System.out.println("\n=-=-=-=-=-=-=-= JDBC Query =-=-=-=-=-=-=-=");
-			System.out.println("\t 0.ROLLBACK");
-			System.out.println("\t 1.전체보기");
-			System.out.println("\t 2.특정 팀 보기");
-			System.out.println("\t 3.팀 정보 수정");
-			System.out.println("\t 4.팀 정보 갱신(1게임 종료 후)");
-			System.out.println("\t 8.메인메뉴로 돌아가기");
-			System.out.println("\t 9.COMMIT");
-			System.out.println("\t >> 원하는 메뉴를 선택하세요. ");
-			
-			switch(sc.nextInt()){
-				case 0 :
-					System.out.println("롤백 합니다.");
-					conn.rollback();
-					selectAll(1);
-					break;
-				case 1 :
-					selectAll(1);
-					break;
-				case 2 :
-					selectByTname();
-					break;
-				case 3 :
-					update();
-					break;
-				case 4 :
-					updateOnegame();
-					break;
-				case 8 :
-					return;
-				case 9 :
-					conn.commit();
-					System.out.println("성공적으로 완료 되었습니다.");
-					break;
-			}
-		}
-		
-	}//end menu
 
 	// selectAll
 	public static void selectAll(int asc) throws SQLException {
@@ -157,7 +112,7 @@ public class TeamController {
     }
 	
 	// update
-	private static void update() {
+	public static void update() {
 		System.out.println("수정할 팀을 입력해주세요. : ");
 		String tname = sc.next();
 		System.out.println("승수를 입력해주세요. : ");
