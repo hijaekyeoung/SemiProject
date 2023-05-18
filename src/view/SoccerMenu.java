@@ -28,6 +28,7 @@ public class SoccerMenu {
 			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
 			switch (sc.nextInt()) {
+
 			case 1:
 				playerMenu();
 				break;
