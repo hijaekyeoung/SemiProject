@@ -1,8 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +8,6 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import dbConn.util.ConnectionSingletonHelper;
-import model.VoteVO;
 
 public class VoteController {
 
@@ -20,7 +16,6 @@ public class VoteController {
 	static ResultSet rs = null;
 	static PreparedStatement pstmt = null;
 	static Connection conn = null;
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 	// connect
 	public static void connect() {
@@ -28,6 +23,7 @@ public class VoteController {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
+			conn.setAutoCommit(false); // 자동 커밋 끄기
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -46,47 +42,22 @@ public class VoteController {
 			e.printStackTrace();
 		}
 	}
-
-	public static void voteMenu() throws SQLException, IOException {
-
-		while (true) {
-			System.out.println("\n=-=-=-=-=-=-=-= JDBC Query =-=-=-=-=-=-=-=");
-			System.out.println("\t 0.ROLLBACK");
-			System.out.println("\t 1.투표 진행 보기");
-			System.out.println("\t 2.경기 결과 보기");
-			System.out.println("\t 3.투표 하기");
-			System.out.println("\t 4.경기 추가하기");
-			System.out.println("\t 8.메인메뉴로 돌아가기");
-			System.out.println("\t 9.COMMIT");
-			System.out.println("\t >> 원하는 메뉴를 선택하세요. ");
-
-			switch (sc.nextInt()) {
-			case 0:
-				System.out.println("롤백 합니다.");
-				conn.rollback();
-				break;
-			case 1:
-				selectByGno();
-				break;
-			case 2:
-				selectByGnoEnd();
-				break;
-			case 3:
-				update();
-				break;
-			case 4:
-				insert();
-				break;
-			case 8:
-				return;
-			case 9:
-				conn.commit();
-				System.out.println("성공적으로 완료 되었습니다.");
-				break;
-			}
+	
+	public static void rollback() {
+		try {
+			conn.rollback();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
-	}// end menu
+	}
+	
+	public static void commit() {
+		try {
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void selectByGno() throws SQLException {
 		pstmt = conn.prepareStatement(
@@ -96,7 +67,7 @@ public class VoteController {
 		pstmt.setInt(1, gno);
 		rs = pstmt.executeQuery();
 		if (!(rs.next())) {
-			System.out.println("없는 경기 입니다.");
+			System.out.println("투표가 없는 경기입니다.");
 			return;
 		}
 
@@ -112,7 +83,7 @@ public class VoteController {
 		pstmt.setInt(1, gno);
 		rs = pstmt.executeQuery();
 		if (!(rs.next())) {
-			System.out.println("없는 경기 입니다.");
+			System.out.println("투표가 없는 경기 입니다.");
 			return;
 		}
 

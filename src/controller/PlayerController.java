@@ -26,7 +26,7 @@ public class PlayerController {
 	private String sqlDelete = "delete from player where pno = ? ";
 	private String sqlUpdate = "update player set tcode = ?, uno = ?, pname = ?, "
 			+ "height = ?, weight = ?, age = ?, position = ? where pno = ?";
-	private String sqlSelectAll = "select * from player";
+	private static String sqlSelectAll = "select * from player";
 	private String sqlSearchByTcode = "select p.pno, t.tname, p.uno, p.pname, p.height,"
 			+ "p.weight, p.age, p.position from player p, team t \r\n"
 			+ "    where (select tcode from team where tname = ?) = p.tcode and\r\n"
@@ -63,74 +63,7 @@ public class PlayerController {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
-	public static void playerMenu() {
-		System.out.println("\n ============ PLAYER LIST ===========");
-		System.out.println("\t 1. 선수 리스트");
-		System.out.println("\t 2. 선수 정보 추가 ");
-		System.out.println("\t 3. 선수 정보 수정 ");
-		System.out.println("\t 4. 선수 정보 삭제 ");
-		System.out.println("\t 5. 특정 조건 검색");
-		System.out.println("\t 6. 메인메뉴로 돌아가기 ");
-		System.out.println("\t >> 원하는 메뉴를 선택하세요.");
-	}
-	public void menu() throws SQLException {
-		
-		while(true) {
-			System.out.println();
-			playerMenu();
-			
-			switch(sc.nextInt()) {
-			case 1: 
-				selectAll();
-				break;
-			case 2:
-				insertPlayer();
-				break;
-			case 3:
-				updatePlayer();
-				break;
-			case 4:
-				deletePlayer();
-				break;
-			case 5:
-				selectOption();
-				break;
-			default:
-				return;
-			}
-		}
-	}
-	public void selectMenu() {
-		System.out.println("\n ============ SELECT MENU ===========");
-		System.out.println("\t 1. 특정 팀에 소속된 선수목록");
-		System.out.println("\t 2. 특정 포지션에 속한 선수목록 ");
-		System.out.println("\t 3. 특정 나이대에 속한 선수목록 ");
-		System.out.println("\t 4. 선수메뉴로 돌아가기 ");
-		System.out.println();
-		System.out.print("메뉴선택 : ");
-	}
 	
-	public void selectOption() {
-		try {
-			while(true) {
-				selectMenu();
-				
-				switch (sc.nextInt()){
-				case 1: 
-					searchByTcode();
-					break;
-				case 2:
-					searchByPosition();
-					break;
-				case 3:
-					searchByAge();
-					break;
-				case 4:
-					return;
-				}
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-	}
 	
 	public void searchByAge() { // 나이대 검색
 		try {

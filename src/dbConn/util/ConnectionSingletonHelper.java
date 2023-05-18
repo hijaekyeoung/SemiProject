@@ -12,14 +12,13 @@ public class ConnectionSingletonHelper {
 	private ConnectionSingletonHelper() {
 	}
 
-
 	public static Connection getConnection() {
 		if (conn != null) {
 			return conn;
 		}
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "soccer", "oracle");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "c##project", "oracle");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
