@@ -60,7 +60,7 @@ public class SoccerMenu {
 			System.out.printf("|%-35s|\n","1. 투표 진행 보기");
 			System.out.printf("|%-35s|\n","2. 경기 결과 보기");
 			System.out.printf("|%-35s|\n","3. 투표 하기　　 ");
-			System.out.printf("|%-35s|\n","4. 투표 추가하기 ");
+			System.out.printf("|%-35s|\n","4. 승부예측 추가");
 			System.out.printf("|%-35s|\n","8. 프로그램 종료");
 			System.out.println("------------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
@@ -95,7 +95,7 @@ public class SoccerMenu {
 			System.out.printf("|%-32s|\n","1. 전체 보기　　　　　");
 			System.out.printf("|%-32s|\n","2. 특정 팀 보기　　　　");
 			System.out.printf("|%-32s|\n","3. 팀 정보 수정　　　　");
-			System.out.printf("|%-32s|\n","4. 팀 정보 갱신　　　　");
+			System.out.printf("|%-32s|\n","4. 경기결과 입력　　　");
 			System.out.printf("|%-32s|\n","8. 메인메뉴로 돌아가기");
 			System.out.println("------------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");

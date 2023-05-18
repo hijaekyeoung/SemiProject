@@ -113,6 +113,7 @@ public class PlayerController {
 			int cnt = 0;
 			System.out.println(String.format("%-4s | %-4s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀코드","등번호","이름","포지션","키","몸무게","나이"));
 			System.out.println("-----------------------------------------------------------------------------------");
+
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				int tcode = rs.getInt("tcode");
@@ -217,6 +218,7 @@ public class PlayerController {
 	public void selectOption() {
 		try {
 			while(true) {
+
 				playerMenu();
 				
 				switch (sc.nextInt()){
@@ -247,6 +249,7 @@ public class PlayerController {
 			int cnt = 0;
 			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
 			System.out.println("-----------------------------------------------------------------------------------");
+
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname = rs.getString("tname");
@@ -257,7 +260,7 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				
+
 				int len = 14 - (pname.getBytes().length - 1) / 3;
 				int len2 = 10 - (tname.getBytes().length - 1) / 3;
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
@@ -278,6 +281,7 @@ public class PlayerController {
 			int cnt = 0;
 			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
 			System.out.println("-----------------------------------------------------------------------------------");
+
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname = rs.getString("tname");
@@ -312,6 +316,7 @@ public class PlayerController {
 			int cnt = 0;
 			System.out.println(String.format("%-4s | %-10s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀","등번호","이름","포지션","키","몸무게","나이"));
 			System.out.println("-----------------------------------------------------------------------------------");
+
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				String tname =rs.getString("tname");
@@ -327,6 +332,7 @@ public class PlayerController {
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
 				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
+
 			}
 			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
 			
