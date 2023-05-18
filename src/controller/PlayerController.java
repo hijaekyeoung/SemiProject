@@ -106,17 +106,6 @@ public class PlayerController {
 		}
 	} 
 	
-	public void selectMenu() {
-		System.out.println("\n============ SELECT MENU ==============");
-		System.out.println("1. 구단 소속 선수목록");
-		System.out.println("2. 포지션 선수목록");
-		System.out.println("3. 나이범위로 해당 나이대 선수목록");
-		System.out.println("4. 선수메뉴로 돌아가기");
-		System.out.println("=======================================");
-		System.out.println();
-		System.out.print("메뉴선택 >> ");
-	}
-	
 	public void selectAll() {
 		try {
 			rs = pstmtSelectAll.executeQuery(sqlSelectAll);
@@ -227,7 +216,7 @@ public class PlayerController {
 	public void selectOption() {
 		try {
 			while(true) {
-				selectMenu();
+				playerMenu();
 				
 				switch (sc.nextInt()){
 				case 1: 
