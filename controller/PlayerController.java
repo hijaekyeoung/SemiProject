@@ -143,28 +143,6 @@ public class PlayerController {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void selectOption() {
-		try {
-			while(true) {
-				selectMenu();
-				
-				switch (sc.nextInt()){
-				case 1: 
-					searchByTcode();
-					break;
-				case 2:
-					searchByPosition();
-					break;
-				case 3:
-					searchByAge();
-					break;
-				case 4:
-					return;
-				}
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
 	public void searchByTcode() {
 		try {
 			System.out.println("================= 12개 구단 =================");
