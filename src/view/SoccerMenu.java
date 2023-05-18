@@ -253,6 +253,8 @@ public class SoccerMenu {
 		
 		
 		public static void playerStatMenu() {
+
+
 			System.out.println("\n---------------------------------------");
 			System.out.printf("%s\t1.선수 스탯 리스트\t%15s\n", "|", "|");
 			System.out.printf("%s\t2.선수 스탯 업데이트\t%15s\n", "|", "|");
@@ -271,6 +273,9 @@ public class SoccerMenu {
 			System.out.printf("%s\t13.메인메뉴로 돌아가기\t%15s\n", "|", "|");
 			System.out.println("---------------------------------------");
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
+			
+			
+			
 		}
 		
 		public static void playerStat() throws SQLException{
