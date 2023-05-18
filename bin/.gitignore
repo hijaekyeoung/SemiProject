@@ -1,3 +1,5 @@
-/dbConn/
+/lib/
 /controller/
+/dbConn/
+/model/
 /view/
