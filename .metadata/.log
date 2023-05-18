@@ -99,6 +99,9 @@ not correct please set the HOME environment variable and restart Eclipse. Otherw
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7d86896dfa3e5bc4f395e9bb222b6223a7db6624
 !SESSION 2023-05-18 15:28:45.803 -----------------------------------------------
 eclipse.buildId=4.24.0.I20220607-0700
 java.version=17.0.3
@@ -319,5 +322,8 @@ java.io.FileNotFoundException: C:\IDE\semiproject\.metadata\.plugins\org.eclipse
 	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+<<<<<<< HEAD
 =======
 >>>>>>> 0c4ea90a25b4c9e945e0cf17931c4c9ae3103c93
+=======
+>>>>>>> 7d86896dfa3e5bc4f395e9bb222b6223a7db6624
