@@ -24,15 +24,12 @@ public class VoteController {
 
 	// connect
 	public static void connect() {
-
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// close
@@ -154,7 +151,6 @@ public class VoteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// insert

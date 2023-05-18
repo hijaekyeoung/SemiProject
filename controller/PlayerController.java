@@ -41,6 +41,7 @@ public class PlayerController {
 			pstmtSearchByTcode = conn.prepareStatement(sqlSearchByTcode);
 			pstmtSearchByPosition = conn.prepareStatement(sqlSearchByPosition);
 			pstmtSearchByAge = conn.prepareStatement(sqlSearchByAge);
+			stmt = conn.createStatement();
 			//conn.setAutoCommit(false);
 		} catch (Exception e) { e.printStackTrace(); }
 	}
@@ -97,162 +98,28 @@ public class PlayerController {
 			}
 		}
 	}
-	public void selectMenu() {
-		System.out.println("\n ============ SELECT MENU ===========");
-		System.out.println("\t 1. 특정 팀에 소속된 선수목록");
-		System.out.println("\t 2. 특정 포지션에 속한 선수목록 ");
-		System.out.println("\t 3. 특정 나이대에 속한 선수목록 ");
-		System.out.println("\t 4. 선수메뉴로 돌아가기 ");
-		System.out.println();
-		System.out.print("메뉴선택 : ");
-	}
 	
-	public void selectOption() {
+	public void selectAll() {
 		try {
-			while(true) {
-				selectMenu();
-				
-				switch (sc.nextInt()){
-				case 1: 
-					searchByTcode();
-					break;
-				case 2:
-					searchByPosition();
-					break;
-				case 3:
-					searchByAge();
-					break;
-				case 4:
-					return;
-				}
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
-	public void searchByAge() { // 나이대 검색
-		try {
-			System.out.println("나이대 검색");
-			System.out.print("시작나이 : ");
-			int startAge = sc.nextInt();
-			System.out.print("끝나이 : " );
-			int endAge = sc.nextInt();
-			pstmtSearchByAge.setInt(1, startAge);
-			pstmtSearchByAge.setInt(2, endAge);
-			rs = pstmtSearchByAge.executeQuery();
-			int cnt = 0;
-			while(rs.next()) {
-				int pno = rs.getInt("pno");
-				int tcode =rs.getInt("tcode");
-				int uno = rs.getInt("uno");
-				String pname = rs.getString("pname");
-				int height = rs.getInt("height");
-				int weight = rs.getInt("weight");
-				int age = rs.getInt("age");
-				String position = rs.getString("position");
-				System.out.println(pno + "||" + tcode + "||" + uno + "||" + pname + "||" 
-						+ position + "||" + height + "||" + weight + "||" + age);
-				cnt++;
-			}
-			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
+			rs = stmt.executeQuery("SELECT p.PNO, t.TNAME, p.UNO, p.PNAME, p.HEIGHT, p.WEIGHT, p.AGE, p.POSITION FROM player p INNER JOIN team t ON p.TCODE = t.TCODE");
 			
-		} catch (Exception e) { e.printStackTrace(); }
-		
-	}
-
-	public void searchByPosition() {
-		try {
-			System.out.print("찾는 포지션 : ");
-			String position = sc.next();
-			pstmtSearchByPosition.setString(1, position);
-			rs = pstmtSearchByPosition.executeQuery();
-			int cnt = 0;
+			System.out.println("=============== 선수 명단 ===============");
 			while(rs.next()) {
-				int pno = rs.getInt("pno");
-				int tcode =rs.getInt("tcode");
-				int uno = rs.getInt("uno");
-				String pname = rs.getString("pname");
-				int height = rs.getInt("height");
-				int weight = rs.getInt("weight");
-				int age = rs.getInt("age");
-				position = rs.getString("position");
-				System.out.println(pno + "||" + tcode + "||" + uno + "||" + pname + "||" 
-						+ position + "||" + height + "||" + weight + "||" + age);
-				cnt++;
-			}
-			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-
-	public void searchByTcode() {
-		try {
-			System.out.print("팀명 : ");
-			pstmtSearchByTcode.setString(1, sc.next());
-			rs = pstmtSearchByTcode.executeQuery();
-			int cnt = 0;
-			while(rs.next()) {
-				int pno = rs.getInt("pno");
-				String tname = rs.getString("tname");
-				int uno = rs.getInt("uno");
-				String pname = rs.getString("pname");
-				int height = rs.getInt("height");
-				int weight = rs.getInt("weight");
-				int age = rs.getInt("age");
-				String position = rs.getString("position");
+				int pno = rs.getInt("p.pno");
+				String tname = rs.getString("t.tname");
+				int uno = rs.getInt("p.uno");
+				String pname = rs.getString("p.pname");
+				int height = rs.getInt("p.height");
+				int weight = rs.getInt("p.weight");
+				int age = rs.getInt("p.age");
+				String position = rs.getString("p.position");
 				
 				System.out.println(pno + "||" + tname + "||" + uno + "||" + pname + "||" 
-						+ position + "||" + height + "||" + weight + "||" + age);
-				cnt++;
+				+ position + "||" + height + "||" + weight + "||" + age);
 			}
-			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
-		} catch (Exception e) { e.printStackTrace(); }
-		
-	}
-
-	public void deletePlayer() {
-		try {
-			System.out.println("삭제할 선수의 고유번호를 입력하세요");
-			System.out.print("선수고유번호 : ");
-			int pno = sc.nextInt();
-			pstmtDelete.setInt(1, pno);
-			int result = pstmtDelete.executeUpdate();
-			System.out.println(result + "명의 선수가 은퇴하였습니다.");
 		} catch (Exception e) { e.printStackTrace(); }
 	}
-
-	public void updatePlayer() {
-		try {
-			System.out.println("수정할 선수의 고유번호로 수정을 진행합니다.");
-			System.out.print("선수고유번호 : ");
-			int pno = sc.nextInt();
-			System.out.print("팀코드 : ");
-			int tcode = sc.nextInt();
-			System.out.print("등번호 : ");
-			int uno = sc.nextInt();
-			System.out.print("이름 : ");
-			String pname = sc.next();
-			System.out.print("키 : ");
-			int height = sc.nextInt();
-			System.out.print("몸무게 : ");
-			int weight = sc.nextInt();
-			System.out.print("나이 : ");
-			int age = sc.nextInt();
-			System.out.print("포지션 : ");
-			String position = sc.next();
-			
-			pstmtUpdate.setInt(1, tcode);
-			pstmtUpdate.setInt(2, uno);
-			pstmtUpdate.setString(3, pname);
-			pstmtUpdate.setInt(4, height);
-			pstmtUpdate.setInt(5, weight);
-			pstmtUpdate.setInt(6, age);
-			pstmtUpdate.setString(7, position);
-			pstmtUpdate.setInt(8, pno);
-			int result = pstmtUpdate.executeUpdate();
-			System.out.println(result + "명의 선수가 수정되었습니다.");
-		} catch (Exception e) { e.printStackTrace(); }
-		
-	}
-
+	
 	public void insertPlayer() {
 		try {
 			System.out.println("선수등록을 위해 아래와 같은 조건으로 입력하세요.");
@@ -287,14 +154,92 @@ public class PlayerController {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
-	public void selectAll() {
+	public void updatePlayer() {
 		try {
-			rs = pstmtSelectAll.executeQuery(sqlSelectAll);
+			System.out.println("수정할 선수의 고유번호로 수정을 진행합니다.");
+			System.out.print("선수고유번호 : ");
+			int pno = sc.nextInt();
+			System.out.print("팀코드 : ");
+			int tcode = sc.nextInt();
+			System.out.print("등번호 : ");
+			int uno = sc.nextInt();
+			System.out.print("이름 : ");
+			String pname = sc.next();
+			System.out.print("키 : ");
+			int height = sc.nextInt();
+			System.out.print("몸무게 : ");
+			int weight = sc.nextInt();
+			System.out.print("나이 : ");
+			int age = sc.nextInt();
+			System.out.print("포지션 : ");
+			String position = sc.next();
 			
-			System.out.println("=============== 선수 명단 ===============");
+			pstmtUpdate.setInt(1, tcode);
+			pstmtUpdate.setInt(2, uno);
+			pstmtUpdate.setString(3, pname);
+			pstmtUpdate.setInt(4, height);
+			pstmtUpdate.setInt(5, weight);
+			pstmtUpdate.setInt(6, age);
+			pstmtUpdate.setString(7, position);
+			pstmtUpdate.setInt(8, pno);
+			int result = pstmtUpdate.executeUpdate();
+			System.out.println(result + "명의 선수가 수정되었습니다.");
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+
+	public void deletePlayer() {
+		try {
+			System.out.println("삭제할 선수의 고유번호를 입력하세요");
+			System.out.print("선수고유번호 : ");
+			int pno = sc.nextInt();
+			pstmtDelete.setInt(1, pno);
+			int result = pstmtDelete.executeUpdate();
+			System.out.println(result + "명의 선수가 은퇴하였습니다.");
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+
+
+	public void selectMenu() {
+		System.out.println("\n ============ SELECT MENU ===========");
+		System.out.println("\t 1. 특정 팀에 소속된 선수목록");
+		System.out.println("\t 2. 특정 포지션에 속한 선수목록 ");
+		System.out.println("\t 3. 특정 나이대에 속한 선수목록 ");
+		System.out.println("\t 4. 선수메뉴로 돌아가기 ");
+		System.out.println();
+		System.out.print("메뉴선택 : ");
+	}
+	
+	public void selectOption() {
+		try {
+			while(true) {
+				selectMenu();
+				
+				switch (sc.nextInt()){
+				case 1: 
+					searchByTcode();
+					break;
+				case 2:
+					searchByPosition();
+					break;
+				case 3:
+					searchByAge();
+					break;
+				case 4:
+					return;
+				}
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void searchByTcode() {
+		try {
+			System.out.print("팀명 : ");
+			pstmtSearchByTcode.setString(1, sc.next());
+			rs = pstmtSearchByTcode.executeQuery();
+			int cnt = 0;
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
-				int tcode = rs.getInt("tcode");
+				String tname = rs.getString("tname");
 				int uno = rs.getInt("uno");
 				String pname = rs.getString("pname");
 				int height = rs.getInt("height");
@@ -302,12 +247,63 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				System.out.println(pno + "||" + tcode + "||" + uno + "||" + pname + "||" 
-				+ position + "||" + height + "||" + weight + "||" + age);
+				System.out.println(pno + "||" + tname + "||" + uno + "||" + pname + "||" 
+						+ position + "||" + height + "||" + weight + "||" + age);
+				cnt++;
 			}
-			
+			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
+	public void searchByPosition() {
+		try {
+			System.out.print("찾는 포지션 : ");
+			String position = sc.next();
+			pstmtSearchByPosition.setString(1, position);
+			rs = pstmtSearchByPosition.executeQuery();
+			int cnt = 0;
+			while(rs.next()) {
+				int pno = rs.getInt("pno");
+				int tcode =rs.getInt("tcode");
+				int uno = rs.getInt("uno");
+				String pname = rs.getString("pname");
+				int height = rs.getInt("height");
+				int weight = rs.getInt("weight");
+				int age = rs.getInt("age");
+				position = rs.getString("position");
+				System.out.println(pno + "||" + tcode + "||" + uno + "||" + pname + "||" 
+						+ position + "||" + height + "||" + weight + "||" + age);
+				cnt++;
+			}
+			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
+		} catch (Exception e) { e.printStackTrace(); }
+	}
 	
+	public void searchByAge() { // 나이대 검색
+		try {
+			System.out.println("나이대 검색");
+			System.out.print("시작나이 : ");
+			int startAge = sc.nextInt();
+			System.out.print("끝나이 : " );
+			int endAge = sc.nextInt();
+			pstmtSearchByAge.setInt(1, startAge);
+			pstmtSearchByAge.setInt(2, endAge);
+			rs = pstmtSearchByAge.executeQuery();
+			int cnt = 0;
+			while(rs.next()) {
+				int pno = rs.getInt("pno");
+				int tcode =rs.getInt("tcode");
+				int uno = rs.getInt("uno");
+				String pname = rs.getString("pname");
+				int height = rs.getInt("height");
+				int weight = rs.getInt("weight");
+				int age = rs.getInt("age");
+				String position = rs.getString("position");
+				System.out.println(pno + "||" + tcode + "||" + uno + "||" + pname + "||" 
+						+ position + "||" + height + "||" + weight + "||" + age);
+				cnt++;
+			}
+			System.out.println("총" + cnt + "명의 선수가 검색되었습니다.");
+		} catch (Exception e) { e.printStackTrace(); }
+	}
 }

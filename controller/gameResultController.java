@@ -24,7 +24,7 @@ public class gameResultController { // controller
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-			conn.setAutoCommit(false); // 자동 커밋 끄기
+			//conn.setAutoCommit(false); // 자동 커밋 끄기
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,30 +55,31 @@ public class gameResultController { // controller
 				selectMenu();
 				break; // (
 			case 2:
-				updateResult();
+				selectWillplay(); updateResult();
 				break;
 			case 3:
-				updateDate();
+				selectWillplay(); updateDate();
 				break;
 			case 4:
-				insertGame();
+				selectWillplay(); insertGame();
 				break;
 			case 5:
 				return;
 			}// switch
-		} // end while
+		} // end while	
 	}// menu end
 
 	public static void selectMenu() throws SQLException {
-
-		System.out.println("\n-=-=-=-=-= 일정 조회 =-=-=-=-=-");
-		System.out.println("\t 1. 모든 경기 일정 ");
-		System.out.println("\t 2. 팀 일정 조회");
-		System.out.println("\t 3. 월별 일정 조회 ");
-		System.out.println("\t 4. 경기메뉴로 돌아가기 ");
-
-		System.out.println("\t >> 원하는 메뉴 선택하세요. ");
 		while (true) {
+			System.out.println("\n-=-=-=-=-= 일정 조회 =-=-=-=-=-");
+			System.out.println("\t 1. 모든 경기 일정 ");
+			System.out.println("\t 2. 팀 일정 조회 ");
+			System.out.println("\t 3. 월별 일정 조회 ");
+			System.out.println("\t 4. 미진행 일정 조회 ");
+			System.out.println("\t 5. 라운드별 일정 조회  ");
+			System.out.println("\t 6. 경기메뉴로 돌아가기 ");
+			System.out.println("\t >> 원하는 메뉴 선택하세요. ");
+			
 			switch (sc.nextInt()) {
 
 			case 1:
@@ -90,6 +91,12 @@ public class gameResultController { // controller
 				selectMonth();
 				break;
 			case 4:
+				selectWillplay();
+				break;
+			case 5:
+				selectRound();
+				break;
+			case 6:
 				return;
 			}// switch
 		} // end while
@@ -105,19 +112,19 @@ public class gameResultController { // controller
 			String ascore = rs.getString("ASCORE");
 			String bteam = rs.getString("BTEAM");
 			String bscore = rs.getString("BSCORE");
-
-			System.out.println("===모든 경기 일정=== \n");
+			
+			System.out.println("-=-=-=-=-= 모든 경기 일정 =-=-=-=-=-\n");
 			if (ascore != null) {
 				System.out.println(
 						gdate + " NO." + gno + " " + ateam + " [" + ascore + "]" + " : " + "[" + bscore + "] " + bteam);
 			} else
 				System.out.println(gdate + " NO." + gno + " " + ateam + " [경기 예정] " + bteam);
 		}
-		selectMenu();
+		return;
 	}// selectAll
 
 	public static void selectTeam() throws SQLException {
-		System.out.println("=== 팀별 경기 조회 === \n");
+		System.out.println("-=-=-=-=-= 팀별 경기 조회 =-=-=-=-=-\n");
 		System.out.println("팀 이름을 입력해주세요.");
 		String teamchoice = sc.next();
 		rs = stmt.executeQuery("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE " + "from gameresult " + "where ATEAM = + "
@@ -135,11 +142,11 @@ public class gameResultController { // controller
 			} else
 				System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
 		}
-		selectMenu();
+		return;
 	}// selectTeam end
 
 	public static void selectMonth() throws SQLException {
-		System.out.println("=== 월별 경기 조회 === \n");
+		System.out.println("-=-=-=-=-= 월별 경기 조회 =-=-=-=-=-\n");
 		System.out.println("조회하실 월을 입력해주세요.");
 //			String choicemonth = sc.next();
 		try {
@@ -159,14 +166,51 @@ public class gameResultController { // controller
 				} else
 					System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		selectMenu();
+		} catch (Exception e) { e.printStackTrace(); }
+		return;
 	}// selectMonth end
+	
+	public static void selectWillplay() throws SQLException {
+		System.out.println("-=-=-=-=-= 미진행 경기 일정 =-=-=-=-=-\n");
+		try {
+			rs = stmt.executeQuery("SELECT GDATE, ATEAM, ASCORE, BTEAM, BSCORE FROM GAMERESULT WHERE ASCORE IS NULL ORDER BY GDATE");
+			while (rs.next()) {
+				Date gdate = rs.getDate("GDATE");
+				String ateam = rs.getString("ATEAM");
+				String bteam = rs.getString("BTEAM");
 
+				System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+		return;
+	}
+
+	public static void selectRound() throws SQLException {
+		System.out.println("-=-=-=-=-= 라운드별 경기 조회 =-=-=-=-=-\n");
+		System.out.println("원하는 라운드를 입력해주세요");
+		int W= sc.nextInt(); 
+				
+		try {
+			rs = stmt.executeQuery("SELECT * FROM GAMERESULT WHERE GDATE BETWEEN TO_DATE(TO_DATE('23/02/17')+(7*"+W+"),'YY/MM/DD') AND TO_DATE(TO_DATE('23/02/17')+(7*("+(W+1)+")),'YY/MM/DD')");
+			System.out.println(W +"라운드의 경기 결과입니다");
+			while (rs.next()) {
+				Date gdate = rs.getDate("GDATE");
+				String ateam = rs.getString("ATEAM");
+				String ascore = rs.getString("ASCORE");
+				String bteam = rs.getString("BTEAM");
+				String bscore = rs.getString("BSCORE");
+				
+				if (ascore != null) {
+					System.out.println(gdate + " " + ateam + " [" + ascore + "]" + " : " + "[" + bscore + "] " + bteam);
+				} else
+					System.out.println(gdate + " " + ateam + " [경기 예정] " + bteam);
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+		return;
+	}
+	
 	public static void updateResult() {
-		System.out.println("=== 경기 일정 변경 === \n");
+		System.out.println("-=-=-=-=-= 경기 결과 등록 =-=-=-=-=-\n");
 		System.out.println("결과 입력을 위한 경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
 		System.out.println("HOME 팀의 스코어를 입력해주세요.");
@@ -182,16 +226,14 @@ public class gameResultController { // controller
 			pstmt.executeUpdate();
 			System.out.println("경기 결과 등록되었습니다.");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) { e.printStackTrace(); }
 	}// updateResult end
 
 	public static void updateDate() {
-		System.out.println("=== 경기 일정 변경 === \n");
+		System.out.println("-=-=-=-=-= 경기 일정 변경 =-=-=-=-=-\n");
 		System.out.println("결과 입력을 위한 경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
-		System.out.println("변경할 날짜를 입력해주세요. yy/dd/mm형식 ");
+		System.out.println("변경할 날짜를 입력해주세요. : yy/dd/mm ");
 		String gdate = sc.next();
 		try {
 			pstmt = conn.prepareStatement("Update gameResult Set GDATE = To_DATE(?,'YY/MM/DD') WHERE GNO = ?");
@@ -200,16 +242,14 @@ public class gameResultController { // controller
 			pstmt.executeUpdate();
 			System.out.println("경기 일정 변경되었습니다.");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {	e.printStackTrace(); }
 	}
 
 	public static void insertGame() {
-		System.out.println("== 경기 일정 추가 === \n");
+		System.out.println("-=-=-=-=-= 경기 일정 추가 =-=-=-=-=-\n");
 		System.out.println("경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
-		System.out.println("경기 날짜를 입력해주세요.");
+		System.out.println("경기 날짜를 입력해주세요. : yy/mm/dd");
 		String gdate = sc.next();
 		System.out.println("HOME 팀의 이름 입력해주세요.");
 		String hometeam = sc.next();
@@ -217,8 +257,7 @@ public class gameResultController { // controller
 		String awayteam = sc.next();
 
 		try {
-			pstmt = conn
-					.prepareStatement("INSERT INTO gameResult " + "(GNO, GDATE, ATEAM, BTEAM) " + "VALUES(?, ?, ?, ?)");
+			pstmt = conn.prepareStatement("INSERT INTO gameResult " + "(GNO, GDATE, ATEAM, BTEAM) " + "VALUES(?, ?, ?, ?)");
 			pstmt.setInt(1, gnum);
 			pstmt.setString(2, gdate);
 			pstmt.setString(3, hometeam);
@@ -226,9 +265,7 @@ public class gameResultController { // controller
 			pstmt.executeUpdate();
 			System.out.println("경기 일정 추가되었습니다.");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 
 }// class end

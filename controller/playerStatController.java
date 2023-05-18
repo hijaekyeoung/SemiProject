@@ -24,7 +24,7 @@ public class playerStatController {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-			conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
+			//conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,11 +34,9 @@ public class playerStatController {
 	
 	public static void close() {
 		try {
-			
 			ConnectionSingletonHelper.close(rs);
 			ConnectionSingletonHelper.close(stmt);
 			ConnectionSingletonHelper.close(pstmt);
-			
 		
 			
 		} catch (Exception e) {

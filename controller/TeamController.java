@@ -25,7 +25,6 @@ public class TeamController {
 
 	// connect
 	public static void connect() {
-
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
@@ -33,7 +32,6 @@ public class TeamController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// close
@@ -106,7 +104,6 @@ public class TeamController {
 		default :
 			return; //이전으로
 		}
-        
         ArrayList<TeamVO> list = new ArrayList();
         
         while (rs.next()) {
@@ -124,54 +121,45 @@ public class TeamController {
         for (TeamVO team : list) {
         	System.out.println("TNAME : " + team.getTname() + "\tTWIN : " + team.getTwin() + "\tTDRAW : " + team.getTdraw() + "\tTLOSE : " + team.getTlose() + "\tTSCORE : " + team.getTscore() + "\tTCONCEDED : " + team.getTconceded()+ "\tGD : " + team.getGd());
         }
-		
         System.out.println("0. 돌아가기\t 1. 승 정렬\t 2. 패 정렬\t 3. 무 정렬"); //재정렬
 		selectAll(sc.nextInt());
 		
 	}// end select all
 
-	// insert
-//	public static void insert() throws SQLException {
-//		rs = stmt.executeQuery("select max(tcode) from team");
-//		rs.next();
-//		int tcode = rs.getInt(1)+100; 
-//		
-//		System.out.println("tname : ");
-//		String tname = sc.next();
-//		System.out.println("twin : ");
-//		String twin = sc.next();
-//		System.out.println("tdraw : ");
-//		String tdraw = sc.next();
-//		System.out.println("tlose : ");
-//		String tlose = sc.next();
-//		System.out.println("tscore : ");
-//		String tscore = sc.next();
-//		System.out.println("conceded : ");
-//		String conceded = sc.next();
-//
-//		try {
-//			pstmt = conn.prepareStatement("INSERT INTO TEAM VALUES(?, ?, ?, ?, ?, ?, ?)");
-//			pstmt.setInt(1, tcode);
-//			pstmt.setString(2, tname);
-//			pstmt.setString(3, twin);
-//			pstmt.setString(4, tdraw);
-//			pstmt.setString(5, tlose);
-//			pstmt.setString(6, tscore);
-//			pstmt.setString(7, conceded);
-//
-//			int result = pstmt.executeUpdate();
-//			System.out.println(result + "개 데이터가 추가 되었습니다.");
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}// end insert
-
+	public static void selectByTname() throws SQLException {
+        pstmt = conn.prepareStatement("SELECT TNAME, TWIN, TDRAW, TLOSE, TSCORE ,CONCEDED, (TSCORE-CONCEDED) AS GD FROM TEAM WHERE TNAME = ?");
+        System.out.print("검색할 팀의 이름를 입력: ");
+        String tname = sc.next();
+        pstmt.setString(1, tname);
+        rs = pstmt.executeQuery();
+        
+        ArrayList<TeamVO> list = new ArrayList();
+        
+        while (rs.next()) {
+        	TeamVO team = new TeamVO();
+        	team.setTname(rs.getString("Tname"));
+        	team.setTwin(rs.getInt("Twin"));        	
+        	team.setTlose(rs.getInt("Tlose"));        	
+        	team.setTdraw(rs.getInt("Tdraw"));        	
+        	team.setTscore(rs.getInt("Tscore"));        	
+        	team.setTconceded(rs.getInt("conceded"));
+        	team.setGd(rs.getInt("gd"));
+            list.add(team);
+        }
+        if (list.size() == 0) {
+            System.out.println("없는 팀 입니다.");
+            System.out.println();
+            return;
+        }
+        for (TeamVO team : list) {
+        	System.out.println("TNAME : " + team.getTname() + "\tTWIN : " + team.getTwin() + "\tTDRAW : " + team.getTdraw() + "\tTLOSE : " + team.getTlose() + "\tTSCORE : " + team.getTscore() + "\tTCONCEDED : " + team.getTconceded()+ "\tGD : " + team.getGd());
+        }
+    }
+	
 	// update
 	private static void update() {
 		System.out.println("수정할 팀을 입력해주세요. : ");
 		String tname = sc.next();
-
 		System.out.println("승수를 입력해주세요. : ");
 		String twin = sc.next();
 		System.out.println("무수를 입력해주세요. : ");
@@ -259,58 +247,6 @@ public class TeamController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-
-	// delete
-//	public static void delete() throws IOException, SQLException {
-//		System.out.println("삭제할 팀의 팀번호를 입력하세요");
-//		String tcode = sc.next();
-//
-//		try {
-//			pstmt = conn.prepareStatement("delete team where tcode = ?");
-//			pstmt.setString(1, tcode);
-//
-//			pstmt.executeUpdate();
-//
-//			System.out.println(tcode + "번 팀이 삭제되었습니다.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-	public static void selectByTname() throws SQLException {
-        pstmt = conn.prepareStatement("SELECT TNAME, TWIN, TDRAW, TLOSE, TSCORE ,CONCEDED, (TSCORE-CONCEDED) AS GD FROM TEAM WHERE TNAME = ?");
-        System.out.print("검색할 팀의 이름를 입력: ");
-        String tname = sc.next();
-        pstmt.setString(1, tname);
-        rs = pstmt.executeQuery();
-        
-        ArrayList<TeamVO> list = new ArrayList();
-        
-        while (rs.next()) {
-        	TeamVO team = new TeamVO();
-        	team.setTname(rs.getString("Tname"));
-        	team.setTwin(rs.getInt("Twin"));        	
-        	team.setTlose(rs.getInt("Tlose"));        	
-        	team.setTdraw(rs.getInt("Tdraw"));        	
-        	team.setTscore(rs.getInt("Tscore"));        	
-        	team.setTconceded(rs.getInt("conceded"));
-        	team.setGd(rs.getInt("gd"));
-            list.add(team);
-        }
-        
-        if (list.size() == 0) {
-            System.out.println("없는 팀 입니다.");
-            System.out.println();
-            return;
-        }
-        
-        for (TeamVO team : list) {
-        	System.out.println("TNAME : " + team.getTname() + "\tTWIN : " + team.getTwin() + "\tTDRAW : " + team.getTdraw() + "\tTLOSE : " + team.getTlose() + "\tTSCORE : " + team.getTscore() + "\tTCONCEDED : " + team.getTconceded()+ "\tGD : " + team.getGd());
-        }
-    }
 
 }
