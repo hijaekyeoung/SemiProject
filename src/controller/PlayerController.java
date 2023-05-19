@@ -3,10 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.Scanner;
 
 import dbConn.util.ConnectionSingletonHelper;
@@ -123,9 +121,8 @@ public class PlayerController {
 				int weight = rs.getInt("weight");
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
-				
-				
-				int len = 14 - (pname.getBytes().length - 1) / 3;
+			
+				int len = 14 - (pname.getBytes().length - 2) / 3;
 				int len2 = 10 - (tcode - 1) / 3;
 				System.out.println(String.format("%-8d | %-7d | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tcode, uno, pname, position, height, weight, age));
 				System.out.println("-----------------------------------------------------------------------------------");
@@ -255,9 +252,10 @@ public class PlayerController {
 	
 	public void searchByTcode() {
 		try {
-			System.out.println("================= 12개 구단 =================");
-			System.out.println("강원  |  광주  |  대구  |  대전  |  서울  |  수원삼성");
-			System.out.println("울산  |  인천  |  전북  |  제주  |  포항  |  수원FC");
+			System.out.println("──────────── 구 단     목 록 ──────────────────");
+			System.out.println(" 강원 │ 광주 │ 대구 │ 대전 │ 서울 │ 수원삼성");
+			System.out.println(" 울산 │ 인천 │ 전북 │ 제주 │ 포항 │ 수원FC");
+			System.out.println("───────────────────────────────────────────────");
 			System.out.print("팀명 : ");
 			pstmtSearchByTcode.setString(1, sc.next());
 			rs = pstmtSearchByTcode.executeQuery();
@@ -275,7 +273,6 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-
 				int len = 14 - (pname.getBytes().length - 1) / 3;
 				int len2 = 10 - (tname.getBytes().length - 1) / 3;
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));

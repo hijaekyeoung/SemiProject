@@ -23,12 +23,11 @@ public class VoteController {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-			conn.setAutoCommit(false); // 자동 커밋 끄기
+//			conn.setAutoCommit(false); // 자동 커밋 끄기
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// close
@@ -118,7 +117,6 @@ public class VoteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// insert

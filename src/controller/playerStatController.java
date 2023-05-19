@@ -395,7 +395,14 @@ public class playerStatController {
 
 
     }
+         
 
+         
+         
+         
+         
+         
+       
       public static void selectAllByAssistsPerGame() throws SQLException { // 6. 경기당 어시스트
          
          
