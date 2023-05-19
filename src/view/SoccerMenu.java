@@ -319,8 +319,10 @@ public class SoccerMenu {
 			System.out.printf("│%-33s│\n","4. 선수 어시스트 순위  ");
 			System.out.printf("│%-33s│\n","5. 경기당 득점률 순위");
 			System.out.printf("│%-31s│\n","6. 경기당 어시스트율 순위");
-			System.out.printf("│%-32s│\n","8. 메인메뉴로 돌아가기");
-			System.out.printf("│%-35s│\n","9. 프로그램 종료");
+			System.out.printf("│%-33s│\n","7. 경기당 슛팅률 순위");
+			System.out.printf("│%-31s│\n","8. 경기당 유효슛팅률 순위");
+			System.out.printf("│%-32s│\n","9. 메인메뉴로 돌아가기");
+			System.out.printf("│%-35s│\n","0. 프로그램 종료");
 			System.out.println("└─────────────────────────────────────────┘");
 
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
@@ -339,9 +341,8 @@ public class SoccerMenu {
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
 					case 7: playerStatController.selectAllByShotsPerGame(); break;
 					case 8: playerStatController.selectAllByShots_on_goalPerGame(); break;
-
 					case 9: return;
-					case 10:
+					case 0:
 						System.out.println("프로그램을 종료합니다.");
 						System.exit(0);
 					default:
