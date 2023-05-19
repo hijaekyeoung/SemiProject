@@ -58,6 +58,7 @@ public class PlayerController {
 			ConnectionSingletonHelper.close(pstmtSearchByTcode);
 			ConnectionSingletonHelper.close(pstmtSearchByPosition);
 			ConnectionSingletonHelper.close(pstmtSearchByAge);
+			ConnectionSingletonHelper.close(pstmt);
 			ConnectionSingletonHelper.close(stmt);
 			ConnectionSingletonHelper.close(conn);
 		} catch (Exception e) { e.printStackTrace(); }
