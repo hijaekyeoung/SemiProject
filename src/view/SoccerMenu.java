@@ -329,21 +329,23 @@ public class SoccerMenu {
 		public static void playerStat() throws SQLException{
 			while(true) {
 				playerStatMenu();
-				switch(sc.nextInt()) {
-					case 1: playerStatController.selectAll(sc.nextInt()); break;	
+				switch(sc.nextInt()) {	
+					case 1: playerStatController.selectAll(1); break;	
 					case 2: playerStatController.playerStatUpdate(); break;
 					case 3: playerStatController.delete(); break;
 					case 4: playerStatController.selectAllAssists(); break;
 					case 5: playerStatController.selectAllByGoalsPerGame(); break;
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
-					case 8: return;
-					case 9:
+					case 7: playerStatController.selectAllByShotsPerGame(); break;
+					case 8: playerStatController.selectAllByShots_on_goalPerGame(); break;
+
+					case 9: return;
+					case 10:
 						System.out.println("프로그램을 종료합니다.");
 						System.exit(0);
 					default:
 						System.out.println("\t>>  ※ 잘못 입력하셨습니다 ※");
 						continue;
-
 				}
 			}// end while
 		}
