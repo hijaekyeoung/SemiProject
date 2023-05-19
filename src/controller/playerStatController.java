@@ -3,15 +3,13 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import dbConn.util.ConnectionSingletonHelper;
 import model.PlayerStatVO;
-import model.TeamVO;
 import view.SoccerMenu;
 
 public class playerStatController {
@@ -21,50 +19,34 @@ public class playerStatController {
    static ResultSet rs = null;
    static PreparedStatement pstmtSelectAll ,pstmt,selectAll;
    static Connection conn = null;
-   
-   
-   
    static String sqlSelectAll = "SELECT * FROM PLAYERSTAT";
-   
-   
-   
    
    public static void connect() {
       try {
          conn = ConnectionSingletonHelper.getConnection();
          stmt = conn.createStatement();
-         
          pstmtSelectAll = conn.prepareStatement(sqlSelectAll);
+//         conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
          
-         
-
-         conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
-
       } catch (Exception e) {e.printStackTrace();}   
    }
 ///////////// close //////////////////////////////////   
    
    public static void close() {
       try {
-         
          ConnectionSingletonHelper.close(rs);
          ConnectionSingletonHelper.close(stmt);
          ConnectionSingletonHelper.close(pstmt);
-         
-      
          
       } catch (Exception e) {
          e.printStackTrace();
       }
    }
-   
 
    public static void playerStat() throws SQLException{     
       
       while(true) {
-         
          System.out.println();
-
          SoccerMenu.playerStatMenu();
          System.out.println();
          System.out.println("옵션 선택하세요.");
@@ -229,7 +211,7 @@ public class playerStatController {
 	         
 			    int len1 = 12 - (pname.getBytes().length - 2) / 3; // 
 				int len2 = 12 - (tname.getBytes().length - 2) / 3; //  
-				
+				if (tname.equals("수원FC")) {len2 =11;};
 				System.out.println(String.format("%-"+len1+"s | %-" + len2 + "s   |  %-2d  |  %-2d |  %-3d  |  %-4d |  %-5d   |  %-3d  |  %-2d  |  %-2d  | %-2d"
 													, pname,tname,g_count,goal,assists,shots,shots_on_goal,foul,ycard,rcard,offside));
 
@@ -417,9 +399,6 @@ public class playerStatController {
     	  
     	  
      }
-      
-      
-      
       
       
       
