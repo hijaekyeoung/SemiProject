@@ -25,12 +25,11 @@ public class TeamController {
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-			conn.setAutoCommit(false); // 자동 커밋 끄기
+//			conn.setAutoCommit(false); // 자동 커밋 끄기
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// close
@@ -48,9 +47,9 @@ public class TeamController {
 	// selectAll
 	public static void selectAll(int asc) throws SQLException {
 		/*
-		 * K 리그 순위 결정 기준 
-		 * 승점 > 다득점 > 득실차 > 다승 <-- 여기까지 구현 
-		 * > 승자승 > 실경기시간(ATP)순 > 추첨
+		 K 리그 순위 결정 기준 
+		 승점 > 다득점 > 득실차 > 다승 <-- 여기까지 구현 
+		 > 승자승 > 실경기시간(ATP)순 > 추첨
 		 */
 
 		String srt = "";
@@ -108,45 +107,7 @@ public class TeamController {
 		System.out.println();
 		System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", "1. 순위 정렬", "2. 승 정렬", "3. 무 정렬", "4. 패 정렬", "8. 돌아가기");
 		selectAll(sc.nextInt());
-
 	}// end select all
-
-	// insert
-//	public static void insert() throws SQLException {
-//		rs = stmt.executeQuery("select max(tcode) from team");
-//		rs.next();
-//		int tcode = rs.getInt(1)+100; 
-//		
-//		System.out.println("tname : ");
-//		String tname = sc.next();
-//		System.out.println("twin : ");
-//		String twin = sc.next();
-//		System.out.println("tdraw : ");
-//		String tdraw = sc.next();
-//		System.out.println("tlose : ");
-//		String tlose = sc.next();
-//		System.out.println("tscore : ");
-//		String tscore = sc.next();
-//		System.out.println("conceded : ");
-//		String conceded = sc.next();
-//
-//		try {
-//			pstmt = conn.prepareStatement("INSERT INTO TEAM VALUES(?, ?, ?, ?, ?, ?, ?)");
-//			pstmt.setInt(1, tcode);
-//			pstmt.setString(2, tname);
-//			pstmt.setString(3, twin);
-//			pstmt.setString(4, tdraw);
-//			pstmt.setString(5, tlose);
-//			pstmt.setString(6, tscore);
-//			pstmt.setString(7, conceded);
-//
-//			int result = pstmt.executeUpdate();
-//			System.out.println(result + "개 데이터가 추가 되었습니다.");
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}// end insert
 
 	// update
 
@@ -255,25 +216,8 @@ public class TeamController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
-	// delete
-//	public static void delete() throws IOException, SQLException {
-//		System.out.println("삭제할 팀의 팀번호를 입력하세요");
-//		String tcode = sc.next();
-//
-//		try {
-//			pstmt = conn.prepareStatement("delete team where tcode = ?");
-//			pstmt.setString(1, tcode);
-//
-//			pstmt.executeUpdate();
-//
-//			System.out.println(tcode + "번 팀이 삭제되었습니다.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	
 	public static void selectByTname() throws SQLException {
 		pstmt = conn.prepareStatement(
 				"SELECT TNAME, TWIN, TDRAW, TLOSE, TSCORE ,CONCEDED, (TSCORE-CONCEDED) AS GD FROM TEAM WHERE TNAME = ?");
@@ -295,7 +239,6 @@ public class TeamController {
 			team.setGd(rs.getInt("gd"));
 			list.add(team);
 		}
-
 		if (list.size() == 0) {
 			System.out.println("없는 팀 입니다.");
 			System.out.println();
