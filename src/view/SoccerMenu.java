@@ -338,7 +338,6 @@ public class SoccerMenu {
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
 					case 7: playerStatController.selectAllByShotsPerGame(); break;
 					case 8: playerStatController.selectAllByShots_on_goalPerGame(); break;
-
 					case 9: return;
 					case 10:
 						System.out.println("프로그램을 종료합니다.");
