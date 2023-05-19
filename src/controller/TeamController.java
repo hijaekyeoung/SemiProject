@@ -47,19 +47,28 @@ public class TeamController {
 
 	// selectAll
 	public static void selectAll(int asc) throws SQLException {
+		/*
+		 * K 리그 순위 결정 기준 
+		 * 승점 > 다득점 > 득실차 > 다승 <-- 여기까지 구현 
+		 * > 승자승 > 실경기시간(ATP)순 > 추첨
+		 */
 
-		switch (asc) { // GD = 득실차
-		case 1:
+		switch (asc) {
+		case 1: // 순위정렬
 			rs = stmt.executeQuery(
-					"SELECT rownum as 순위, TNAME as 팀명, TWIN as 승, TDRAW as 무, TLOSE as 패, TSCORE as 득 ,CONCEDED as 실, (TSCORE-CONCEDED) AS 득실차 FROM TEAM ORDER BY TWIN DESC"); // 승정렬
+					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A");
 			break;
-		case 2:
+		case 2: // 승정렬
 			rs = stmt.executeQuery(
-					"SELECT rownum as 순위, TNAME as 팀명, TWIN as 승, TDRAW as 무, TLOSE as 패, TSCORE as 득 ,CONCEDED as 실, (TSCORE-CONCEDED) AS 득실차 FROM TEAM ORDER BY TLOSE DESC"); // 패정렬
+					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TWIN DESC");
 			break;
-		case 3:
+		case 3: // 무정렬
 			rs = stmt.executeQuery(
-					"SELECT rownum as 순위, TNAME as 팀명, TWIN as 승, TDRAW as 무, TLOSE as 패, TSCORE as 득 ,CONCEDED as 실, (TSCORE-CONCEDED) AS 득실차 FROM TEAM ORDER BY TDRAW DESC"); // 무정렬
+					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TDRAW DESC");
+			break;
+		case 4: // 패정렬
+			rs = stmt.executeQuery(
+					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TLOSE DESC");
 			break;
 		default:
 			return; // 이전으로
@@ -79,7 +88,7 @@ public class TeamController {
 			team.setGd(rs.getInt("득실차"));
 			list.add(team);
 		}
-		
+
 		System.out.printf(" %-2s | %-8s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "순위", "팀명", "승", "무", "패", "득",
 				"실", "득실차");
 		System.out.println("--------------------------------------------------------------");
@@ -95,9 +104,9 @@ public class TeamController {
 					team.getTconceded(), team.getGd());
 			System.out.println("--------------------------------------------------------------");
 		}
-		
+
 		System.out.println();
-		System.out.printf("%-10s%-10s%-10s%-10s\n", "0. 돌아가기", "1. 승 정렬", "2. 패 정렬", "3. 무 정렬");
+		System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", "0. 돌아가기", "1. 순위 정렬", "2. 승 정렬", "3. 무 정렬", "4. 패 정렬");
 		selectAll(sc.nextInt());
 
 	}// end select all
@@ -141,7 +150,7 @@ public class TeamController {
 
 	// update
 
-	public static void update()  {
+	public static void update() {
 		System.out.println("수정할 팀을 입력해주세요. : ");
 		String tname = sc.next();
 
@@ -193,7 +202,7 @@ public class TeamController {
 		int tlose1 = rs.getInt(3);
 		int tscore1 = rs.getInt(4);
 		int conceded1 = rs.getInt(5);
-		
+
 		pstmt = conn.prepareStatement("SELECT TDRAW, TWIN, TLOSE, TSCORE, CONCEDED FROM TEAM WHERE TNAME = ?");
 		pstmt.setString(1, tname2);
 		rs = pstmt.executeQuery();
@@ -231,7 +240,6 @@ public class TeamController {
 			pstmt.setString(6, tname1);
 			int result = pstmt.executeUpdate();
 
-
 			pstmt = conn.prepareStatement(
 					"UPDATE TEAM SET TWIN = ?, TDRAW = ?, TLOSE = ?, TSCORE =?, CONCEDED =?  WHERE TNAME = ?");
 			pstmt.setInt(1, twin2);
@@ -241,7 +249,7 @@ public class TeamController {
 			pstmt.setInt(5, conceded2);
 			pstmt.setString(6, tname2);
 			result += pstmt.executeUpdate();
-			
+
 			System.out.println(result + "개 데이터가 변경 되었습니다.");
 
 		} catch (Exception e) {
@@ -294,7 +302,6 @@ public class TeamController {
 			return;
 		}
 
-		
 		System.out.printf(" %-2s | %-8s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "순위", "팀명", "승", "무", "패", "득",
 				"실", "득실차");
 		System.out.println("--------------------------------------------------------------");
