@@ -1,13 +1,14 @@
 package view;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
+
 import controller.PlayerController;
 import controller.TeamController;
 import controller.VoteController;
 import controller.gameResultController;
 import controller.playerStatController;
-import java.io.IOException;
 
 public class MainEntry {
 

@@ -13,7 +13,6 @@ import controller.playerStatController;
 public class SoccerMenu {
 	static Scanner sc = new Scanner(System.in);
 	static PlayerController pcon = new PlayerController();
-//	VoteController vcon = new VoteController();
 
 	public static void soccerMenu() throws SQLException, IOException {
 
