@@ -14,7 +14,7 @@ public class PlayerController {
 	static Scanner sc = new Scanner(System.in);
 	static Statement stmt = null;
 	static PreparedStatement pstmtInsert, pstmtDelete, pstmtUpdate;
-	static PreparedStatement pstmtSelectAll, pstmtSearchByTcode, pstmtSearchByPosition;
+	static PreparedStatement pstmt, pstmtSelectAll, pstmtSearchByTcode, pstmtSearchByPosition;
 	static PreparedStatement pstmtSearchByAge;
 	static ResultSet rs = null;
 	static Connection conn = null;
@@ -111,7 +111,7 @@ public class PlayerController {
 			int cnt = 0;
 			System.out.println(String.format("%-4s | %-4s | %-3s | %-13s | %-3s | %-4s | %-4s | %-4s", "선수번호","팀코드","등번호","이름","포지션","키","몸무게","나이"));
 			System.out.println("-----------------------------------------------------------------------------------");
-
+			
 			while(rs.next()) {
 				int pno = rs.getInt("pno");
 				int tcode = rs.getInt("tcode");
@@ -121,8 +121,7 @@ public class PlayerController {
 				int weight = rs.getInt("weight");
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
-				
-				//int len = 14 - (pname.getBytes().length - 1) / 3;
+			
 				int len = 14 - (pname.getBytes().length - 2) / 3;
 				int len2 = 10 - (tcode - 1) / 3;
 				System.out.println(String.format("%-8d | %-7d | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tcode, uno, pname, position, height, weight, age));
@@ -136,36 +135,51 @@ public class PlayerController {
 	
 	public void insertPlayer() {
 		try {
+			String sql = "SELECT PNO FROM PLAYER WHERE PNO = ? ";
+			pstmt = conn.prepareStatement(sql);
 			System.out.println("선수등록을 위해 아래와 같은 조건으로 입력하세요.");
 			System.out.print("선수고유번호 : ");
 			int pno = sc.nextInt();
-			System.out.print("팀코드 : ");
-			int tcode = sc.nextInt();
-			System.out.print("등번호 : ");
-			int uno = sc.nextInt();
-			System.out.print("이름 : ");
-			String panme = sc.next();
-			System.out.print("포지션 : ");
-			String position = sc.next();
-			System.out.print("키 : ");
-			int height = sc.nextInt();
-			System.out.print("몸무게 : ");
-			int weight = sc.nextInt();
-			System.out.print("나이 : ");
-			int age = sc.nextInt();
-			
-			pstmtInsert.setInt(1, pno);
-			pstmtInsert.setInt(2, tcode);
-			pstmtInsert.setInt(3, uno);
-			pstmtInsert.setString(4, panme);
-			pstmtInsert.setInt(5, height);
-			pstmtInsert.setInt(6, weight);
-			pstmtInsert.setInt(7, age);
-			pstmtInsert.setString(8, position);
-			int result = pstmtInsert.executeUpdate();
-			System.out.println(result + "명의 선수가 새롭게 등록되었습니다.");
-			//selectAll();
-		} catch (Exception e) { e.printStackTrace(); }
+			pstmt.setInt(1, pno);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				System.out.println("이미 존재하는 선수번호가 있습니다.");
+				System.out.println("선수메뉴로 돌아갑니다.");
+				return;
+			} else {
+				System.out.print("팀코드(100 ~1200 중 선택) : ");
+				int tcode = sc.nextInt();
+				System.out.print("등번호 : ");
+				int uno = sc.nextInt();
+				System.out.print("이름 : ");
+				String panme = sc.next();
+				System.out.print("포지션 : ");
+				String position = sc.next();
+				System.out.print("키 : ");
+				int height = sc.nextInt();
+				System.out.print("몸무게 : ");
+				int weight = sc.nextInt();
+				System.out.print("나이 : ");
+				int age = sc.nextInt();
+
+				pstmtInsert.setInt(1, pno);
+				pstmtInsert.setInt(2, tcode);
+				pstmtInsert.setInt(3, uno);
+				pstmtInsert.setString(4, panme);
+				pstmtInsert.setInt(5, height);
+				pstmtInsert.setInt(6, weight);
+				pstmtInsert.setInt(7, age);
+				pstmtInsert.setString(8, position);
+				int result = pstmtInsert.executeUpdate();
+				System.out.println(result + "명의 선수가 새롭게 등록되었습니다.");
+			}
+			// System.out.print("선수고유번호 : ");
+
+			// selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void updatePlayer() {
