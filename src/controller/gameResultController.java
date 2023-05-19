@@ -72,7 +72,7 @@ public class gameResultController { // controller
 		System.out.println(" 강원 │ 광주 │ 대구 │ 대전 │ 서울 │ 수원삼성");
 		System.out.println(" 울산 │ 인천 │ 전북 │ 제주 │ 포항 │ 수원FC");
 		System.out.println("───────────────────────────────────────────────");
-		System.out.println("팀 이름을 입력해주세요.");
+		System.out.println("\t>> 팀 이름을 입력해주세요.");
 		String teamchoice = sc.next();
 		rs = stmt.executeQuery("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE " + "from gameresult " + "where ATEAM = + "
 				+ "'" + teamchoice + "'" + "or BTEAM =" + "'" + teamchoice + "'" + "order by GDATE");
@@ -99,7 +99,7 @@ public class gameResultController { // controller
 	}// selectTeam end
 
 	public static void selectMonth() throws SQLException {
-		System.out.println("조회하실 월을 입력해주세요.");
+		System.out.println("\t>> 조회하실 월을 입력해주세요.");
 		try {
 			pstmt = conn.prepareStatement("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE" + "  from gameresult"
 					+ "  where to_date(GDATE, 'YY/MM/DD') like '23/%'||?||'/%'" + "  order by GDATE");
@@ -129,7 +129,7 @@ public class gameResultController { // controller
 	}// selectMonth end
 	
 	public static void selectWillplay() throws SQLException {
-		System.out.println("────────── 미 진 행    경 기    일 정 ───────────");
+		System.out.println("──────────────── 미 진 행    경 기    일 정 ─────────────────");
 		try {
 			rs = stmt.executeQuery("SELECT GDATE,GNO, ATEAM, ASCORE, BTEAM, BSCORE FROM GAMERESULT WHERE ASCORE IS NULL ORDER BY GDATE");
 			while (rs.next()) {
@@ -149,7 +149,7 @@ public class gameResultController { // controller
 	}
 
 	public static void selectRound() throws SQLException {
-		System.out.println("원하는 라운드를 입력해주세요");
+		System.out.println("\t>> 조회하실 라운드를 입력해주세요");
 		int W= sc.nextInt(); 
 		try {
 			rs = stmt.executeQuery("SELECT * FROM GAMERESULT WHERE GDATE BETWEEN TO_DATE(TO_DATE('23/02/17')+(7*"+W+"),'YY/MM/DD') AND TO_DATE(TO_DATE('23/02/17')+(7*("+(W+1)+")),'YY/MM/DD')");
