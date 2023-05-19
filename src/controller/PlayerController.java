@@ -297,8 +297,9 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				int len = 14 - (pname.getBytes().length - 1) / 3;
-				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				int len = 14 - (pname.getBytes().length - 2) / 3;
+				int len2 = 10 - (tname.getBytes().length - 2) / 3;
+				if (tname.equals("수원FC")) {len2 =9;};
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
 				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
@@ -329,8 +330,9 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				position = rs.getString("position");
 				
-				int len = 14 - (pname.getBytes().length - 1) / 3;
-				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				int len = 14 - (pname.getBytes().length - 2) / 3;
+				int len2 = 10 - (tname.getBytes().length - 2) / 3;
+				if (tname.equals("수원FC")) {len2 =9;};
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
 				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;
@@ -363,8 +365,9 @@ public class PlayerController {
 				int age = rs.getInt("age");
 				String position = rs.getString("position");
 				
-				int len = 14 - (pname.getBytes().length - 1) / 3;
-				int len2 = 10 - (tname.getBytes().length - 1) / 3;
+				int len = 14 - (pname.getBytes().length - 2) / 3;
+				int len2 = 10 - (tname.getBytes().length - 2) / 3;
+				if (tname.equals("수원FC")) {len2 =9;};
 				System.out.println(String.format("%-8d | %-" + len2 + "s | %-6d | %-" + len + "s | %-7s | %-4d | %-7d | %-7d", pno, tname, uno, pname, position, height, weight, age));
 				System.out.println("-----------------------------------------------------------------------------------");
 				cnt++;

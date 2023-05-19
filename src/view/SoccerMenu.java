@@ -170,7 +170,7 @@ public class SoccerMenu {
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
 			default:
-				System.out.println("※ 잘못 입력하셨습니다. ※");
+				System.out.println("\t>>  ※ 잘못 입력하셨습니다 ※");
 				continue;	
 
 			}// switch
@@ -187,7 +187,7 @@ public class SoccerMenu {
 			System.out.printf("│%-34s│\n","4. 미진행 경기 일정 ");
 			System.out.printf("│%-33s│\n","5. 라운드별 경기 일정 ");
 //			System.out.printf("│%-30s│\n","7. 일정/결과 메뉴로 돌아가기");
-			System.out.printf("│%-31s│\n","7. 이전 메뉴로 돌아가기");
+			System.out.printf("│%-32s│\n","7. 이전 메뉴로 돌아가기");
 			System.out.printf("│%-32s│\n","8. 메인메뉴로 돌아가기");
 			System.out.printf("│%-35s│\n","9. 프로그램 종료");
 			System.out.println("└─────────────────────────────────────────┘");
@@ -263,7 +263,7 @@ public class SoccerMenu {
 					System.out.println("프로그램을 종료합니다.");
 					System.exit(0);
 				default:
-					System.out.println("※ 잘못 입력하셨습니다. ※");
+					System.out.println("\t>>  ※ 잘못 입력하셨습니다 ※");
 					continue;
 				}
 			}
@@ -319,8 +319,10 @@ public class SoccerMenu {
 			System.out.printf("│%-33s│\n","4. 선수 어시스트 순위  ");
 			System.out.printf("│%-33s│\n","5. 경기당 득점률 순위");
 			System.out.printf("│%-31s│\n","6. 경기당 어시스트율 순위");
-			System.out.printf("│%-32s│\n","8. 메인메뉴로 돌아가기");
-			System.out.printf("│%-35s│\n","9. 프로그램 종료");
+			System.out.printf("│%-33s│\n","7. 경기당 슛팅률 순위");
+			System.out.printf("│%-31s│\n","8. 경기당 유효슛팅률 순위");
+			System.out.printf("│%-32s│\n","9. 메인메뉴로 돌아가기");
+			System.out.printf("│%-35s│\n","0. 프로그램 종료");
 			System.out.println("└─────────────────────────────────────────┘");
 
 			System.out.println("\t>> 원하는 메뉴를 선택하세요. ");
@@ -329,6 +331,7 @@ public class SoccerMenu {
 		public static void playerStat() throws SQLException{
 			while(true) {
 				playerStatMenu();
+			
 				switch(sc.nextInt()) {	
 					case 1: playerStatController.selectAll(1); break;	
 					case 2: playerStatController.playerStatUpdate(); break;
@@ -338,9 +341,8 @@ public class SoccerMenu {
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
 					case 7: playerStatController.selectAllByShotsPerGame(); break;
 					case 8: playerStatController.selectAllByShots_on_goalPerGame(); break;
-
 					case 9: return;
-					case 10:
+					case 0:
 						System.out.println("프로그램을 종료합니다.");
 						System.exit(0);
 					default:
