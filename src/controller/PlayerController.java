@@ -288,7 +288,7 @@ public class PlayerController {
 	public void searchByPosition() {
 		try {
 			System.out.print("찾는 포지션(FW,GK,DF,MF) : ");
-			String position = sc.next();
+			String position = sc.next().toUpperCase();;
 			pstmtSearchByPosition.setString(1, position);
 			rs = pstmtSearchByPosition.executeQuery();
 			int cnt = 0;
