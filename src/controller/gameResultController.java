@@ -23,7 +23,7 @@ public class gameResultController { // controller
 		try {
 			conn = ConnectionSingletonHelper.getConnection();
 			stmt = conn.createStatement();
-			conn.setAutoCommit(false); // 자동 커밋 끄기
+//			conn.setAutoCommit(false); // 자동 커밋 끄기
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,6 +68,10 @@ public class gameResultController { // controller
 
 	public static void selectTeam() throws SQLException {
 		
+		System.out.println("──────────── 구 단     목 록 ──────────────────");
+		System.out.println(" 강원 │ 광주 │ 대구 │ 대전 │ 서울 │ 수원삼성");
+		System.out.println(" 울산 │ 인천 │ 전북 │ 제주 │ 포항 │ 수원FC");
+		System.out.println("───────────────────────────────────────────────");
 		System.out.println("팀 이름을 입력해주세요.");
 		String teamchoice = sc.next();
 		rs = stmt.executeQuery("select GDATE, ATEAM, ASCORE, BTEAM, BSCORE " + "from gameresult " + "where ATEAM = + "
@@ -127,16 +131,18 @@ public class gameResultController { // controller
 	public static void selectWillplay() throws SQLException {
 		System.out.println("────────── 미 진 행    경 기    일 정 ───────────");
 		try {
-			rs = stmt.executeQuery("SELECT GDATE, ATEAM, ASCORE, BTEAM, BSCORE FROM GAMERESULT WHERE ASCORE IS NULL ORDER BY GDATE");
+			rs = stmt.executeQuery("SELECT GDATE,GNO, ATEAM, ASCORE, BTEAM, BSCORE FROM GAMERESULT WHERE ASCORE IS NULL ORDER BY GDATE");
 			while (rs.next()) {
 				Date gdate = rs.getDate("GDATE");
 				String ateam = rs.getString("ATEAM");
 				String bteam = rs.getString("BTEAM");
+				int gno = rs.getInt("GNO");
 				
 				int len = 7 - (ateam.getBytes().length - 1) / 3;
 				if (rs.getString("ateam").equals("수원FC")) {len =6;};
 				
-				System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );
+				System.out.println(gdate+" │  NO."+String.format("%-3d │  %-" + len + "s  │  경기 예정  │  %-" + len + "s", gno, ateam, bteam) );
+//				System.out.println(gdate+" │ "+String.format(" %-" + len + "s  │  경기 예정  │  %-" + len + "s", ateam, bteam) );
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return;
@@ -169,7 +175,7 @@ public class gameResultController { // controller
 	}
 	
 	public static void updateResult() {
-		System.out.println("=== 경기 일정 변경 === \n");
+		System.out.println("──────────── 경기  결과  등록 ─────────────");
 		System.out.println("결과 입력을 위한 경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
 		System.out.println("HOME 팀의 스코어를 입력해주세요.");
@@ -191,8 +197,8 @@ public class gameResultController { // controller
 	}// updateResult end
 
 	public static void updateDate() {
-		System.out.println("=== 경기 일정 변경 === \n");
-		System.out.println("결과 입력을 위한 경기 번호를 입력해주세요.");
+		System.out.println("──────────── 경기  일정  변경 ─────────────");
+		System.out.println("일정 변경을 위한 경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
 		System.out.println("변경할 날짜를 입력해주세요. yy/dd/mm형식 ");
 		String gdate = sc.next();
@@ -209,7 +215,7 @@ public class gameResultController { // controller
 	}
 
 	public static void insertGame() {
-		System.out.println("== 경기 일정 추가 === \n");
+		System.out.println("──────────── 경기  일정  추가 ─────────────");
 		System.out.println("경기 번호를 입력해주세요.");
 		int gnum = sc.nextInt();
 		System.out.println("경기 날짜를 입력해주세요.");
