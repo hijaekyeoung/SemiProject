@@ -116,6 +116,7 @@ public class playerStatController {
 		System.out.println();
    }// selectAllTest end
 
+   
    public static void selectAll(int asc) throws SQLException{ // 1. 모든 필드 상위 전체팀 10명 출력 (1번은 전체 선수 출력)
 	   
 	   switch (asc) { // 
@@ -245,6 +246,7 @@ public class playerStatController {
 		selectAll(sc.nextInt());
    }// selectAll end
 
+
    public static void playerStatUpdate() throws SQLException { // 2. 선수 스탯 업데이트    완성!
  	  
 	  selectAllTest(); // 전체 선수 스탯 리스트 함수
@@ -310,6 +312,7 @@ public class playerStatController {
 
       public static void delete() throws SQLException { // 3. 선수 삭제   완성!
             try {
+
                selectAllTest();
                System.out.println("삭제할 선수의 고유번호를 입력하세요.");
                System.out.print("선수고유번호 : ");
@@ -322,9 +325,7 @@ public class playerStatController {
       }
       
       public static void selectAllAssists() throws SQLException { // 4. 어시스트 전체 1 어시스트 이상 전체 출력!
-//    	  "SELECT PNAME,TNAME, G_COUNT, ASSISTS FROM PLAYERSTAT ORDER BY ASSISTS DESC FETCH FIRST 10 ROW ONLY"
-//    	  "select pname, tname, g_count, assists from playerstat where assists >= 1 order by assists desc"
-    	  
+ 
     	  String sql = "SELECT PNAME,TNAME, G_COUNT, ASSISTS FROM PLAYERSTAT ORDER BY ASSISTS DESC FETCH FIRST 10 ROW ONLY";
           pstmt = conn.prepareStatement(sql);
           rs = pstmt.executeQuery();
