@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 import dbConn.util.ConnectionSingletonHelper;
 import model.TeamVO;
+import view.SoccerMenu;
 
 public class TeamController {
 
@@ -45,7 +47,7 @@ public class TeamController {
 	}
 
 	// selectAll
-	public static void selectAll(int asc) throws SQLException {
+	public static void selectAll(int asc) throws SQLException, IOException {
 		/*
 		 K 리그 순위 결정 기준 
 		 승점 > 다득점 > 득실차 > 다승 <-- 여기까지 구현 
@@ -66,8 +68,14 @@ public class TeamController {
 		case 4: // 패정렬
 			srt = "ORDER BY TLOSE DESC";
 			break;
-		default:// 이전으로
-			return; 
+		case 7:
+			return; 	
+		case 8: //메인메뉴
+			SoccerMenu.soccerMenu(); break;      
+		case 9:
+			System.out.println("프로그램을 종료합니다.");
+			System.exit(0);
+		default :System.out.println("※ 잘못 입력하셨습니다 ※");	
 		}
 		
 		rs = stmt.executeQuery(
@@ -105,13 +113,18 @@ public class TeamController {
 		}
 
 		System.out.println();
-		System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", "1. 순위 정렬", "2. 승 정렬", "3. 무 정렬", "4. 패 정렬", "8. 돌아가기");
+		System.out.printf("%-10s%-10s%-10s%-10s\n", "1. 순위 정렬", "2. 승 정렬", " 3. 무 정렬", "4. 패 정렬");
+		System.out.printf("%-10s%-10s%-10s\n", "7. 이전 메뉴", "8. 메인 메뉴", "9. 프로그램 종료");
 		selectAll(sc.nextInt());
 	}// end select all
 
 	// update
 
 	public static void update() {
+		System.out.println("──────────── 구 단     목 록 ──────────────────");
+		System.out.println(" 강원 │ 광주 │ 대구 │ 대전 │ 서울 │ 수원삼성");
+		System.out.println(" 울산 │ 인천 │ 전북 │ 제주 │ 포항 │ 수원FC");
+		System.out.println("───────────────────────────────────────────────");
 		System.out.println("수정할 팀을 입력해주세요. : ");
 		String tname = sc.next();
 
@@ -219,6 +232,10 @@ public class TeamController {
 	}
 	
 	public static void selectByTname() throws SQLException {
+		System.out.println("──────────── 구 단     목 록 ──────────────────");
+		System.out.println(" 강원 │ 광주 │ 대구 │ 대전 │ 서울 │ 수원삼성");
+		System.out.println(" 울산 │ 인천 │ 전북 │ 제주 │ 포항 │ 수원FC");
+		System.out.println("───────────────────────────────────────────────");
 		pstmt = conn.prepareStatement(
 				"SELECT TNAME, TWIN, TDRAW, TLOSE, TSCORE ,CONCEDED, (TSCORE-CONCEDED) AS GD FROM TEAM WHERE TNAME = ?");
 		System.out.print("검색할 팀의 이름를 입력: ");
