@@ -45,7 +45,6 @@ public class PlayerController {
 			pstmtSearchByTcode = conn.prepareStatement(sqlSearchByTcode);
 			pstmtSearchByPosition = conn.prepareStatement(sqlSearchByPosition);
 			pstmtSearchByAge = conn.prepareStatement(sqlSearchByAge);
-			//conn.setAutoCommit(false);
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
@@ -184,46 +183,70 @@ public class PlayerController {
 	
 	public void updatePlayer() {
 		try {
-			System.out.println("수정할 선수의 고유번호로 수정을 진행합니다.");
+			String sql = "SELECT PNO FROM PLAYER WHERE PNO = ? ";
+			pstmt = conn.prepareStatement(sql);
+			System.out.println("선수 정보 수정을 진행합니다.");
 			System.out.print("선수고유번호 : ");
 			int pno = sc.nextInt();
-			System.out.print("팀코드 : ");
-			int tcode = sc.nextInt();
-			System.out.print("등번호 : ");
-			int uno = sc.nextInt();
-			System.out.print("이름 : ");
-			String pname = sc.next();
-			System.out.print("키 : ");
-			int height = sc.nextInt();
-			System.out.print("몸무게 : ");
-			int weight = sc.nextInt();
-			System.out.print("나이 : ");
-			int age = sc.nextInt();
-			System.out.print("포지션 : ");
-			String position = sc.next();
+			pstmt.setInt(1, pno);
+			rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				System.out.println("존재하는 선수번호가 없습니다.");
+				System.out.println("선수메뉴로 돌아갑니다.");
+				return;
+			} else {
+				System.out.print("팀코드(100 ~1200 중 선택) : ");
+				int tcode = sc.nextInt();
+				System.out.print("등번호 : ");
+				int uno = sc.nextInt();
+				System.out.print("이름 : ");
+				String pname = sc.next();
+				System.out.print("키 : ");
+				int height = sc.nextInt();
+				System.out.print("몸무게 : ");
+				int weight = sc.nextInt();
+				System.out.print("나이 : ");
+				int age = sc.nextInt();
+				System.out.print("포지션 : ");
+				String position = sc.next();
+				
+				pstmtUpdate.setInt(1, tcode);
+				pstmtUpdate.setInt(2, uno);
+				pstmtUpdate.setString(3, pname);
+				pstmtUpdate.setInt(4, height);
+				pstmtUpdate.setInt(5, weight);
+				pstmtUpdate.setInt(6, age);
+				pstmtUpdate.setString(7, position);
+				pstmtUpdate.setInt(8, pno);
+				int result = pstmtUpdate.executeUpdate();
+				System.out.println(result + "명의 선수가 수정되었습니다.");
+			}
 			
-			pstmtUpdate.setInt(1, tcode);
-			pstmtUpdate.setInt(2, uno);
-			pstmtUpdate.setString(3, pname);
-			pstmtUpdate.setInt(4, height);
-			pstmtUpdate.setInt(5, weight);
-			pstmtUpdate.setInt(6, age);
-			pstmtUpdate.setString(7, position);
-			pstmtUpdate.setInt(8, pno);
-			int result = pstmtUpdate.executeUpdate();
-			System.out.println(result + "명의 선수가 수정되었습니다.");
 		} catch (Exception e) { e.printStackTrace(); }
 		
 	}
 
 	public void deletePlayer() {
 		try {
+			String sql = "SELECT PNO FROM PLAYER WHERE PNO = ? ";
+			pstmt = conn.prepareStatement(sql);
 			System.out.println("삭제할 선수의 고유번호를 입력하세요");
 			System.out.print("선수고유번호 : ");
 			int pno = sc.nextInt();
-			pstmtDelete.setInt(1, pno);
-			int result = pstmtDelete.executeUpdate();
-			System.out.println(result + "명의 선수가 은퇴하였습니다.");
+			pstmt.setInt(1, pno);
+			rs = pstmt.executeQuery();
+
+			if (!rs.next()) {
+				System.out.println("존재하는 선수가 없습니다.");
+				System.out.println("선수메뉴로 돌아갑니다.");
+				return;
+			} else {
+				pstmtDelete.setInt(1, pno);
+				int result = pstmtDelete.executeUpdate();
+				System.out.println(result + "명의 선수가 은퇴하였습니다.");
+			}
+			
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 
