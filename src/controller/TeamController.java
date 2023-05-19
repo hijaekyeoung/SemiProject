@@ -302,7 +302,7 @@ public class TeamController {
 			return;
 		}
 
-		System.out.printf(" %-2s | %-8s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "순위", "팀명", "승", "무", "패", "득",
+		System.out.printf(" %-8s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "팀명", "승", "무", "패", "득",
 				"실", "득실차");
 		System.out.println("--------------------------------------------------------------");
 
@@ -313,7 +313,7 @@ public class TeamController {
 			} else {
 				len = 8;
 			}
-			System.out.printf(" %-4s | %-" + len + "s | %-4s | %-4s | %-4s | %-4s | %-4s | %-4s\n", team.getTrank(),
+			System.out.printf(" %-" + len + "s | %-4s | %-4s | %-4s | %-4s | %-4s | %-4s\n",
 					team.getTname(), team.getTwin(), team.getTdraw(), team.getTlose(), team.getTscore(),
 					team.getTconceded(), team.getGd());
 			System.out.println("--------------------------------------------------------------");
