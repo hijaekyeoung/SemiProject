@@ -53,26 +53,26 @@ public class TeamController {
 		 * > 승자승 > 실경기시간(ATP)순 > 추첨
 		 */
 
+		String srt = "";
 		switch (asc) {
 		case 1: // 순위정렬
-			rs = stmt.executeQuery(
-					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A");
+			srt= "";
 			break;
 		case 2: // 승정렬
-			rs = stmt.executeQuery(
-					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TWIN DESC");
+			srt = "ORDER BY TWIN DESC";
 			break;
 		case 3: // 무정렬
-			rs = stmt.executeQuery(
-					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TDRAW DESC");
+			srt = "ORDER BY TDRAW DESC";
 			break;
 		case 4: // 패정렬
-			rs = stmt.executeQuery(
-					"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A ORDER BY TLOSE DESC");
+			srt = "ORDER BY TLOSE DESC";
 			break;
-		default:
-			return; // 이전으로
+		default:// 이전으로
+			return; 
 		}
+		
+		rs = stmt.executeQuery(
+				"SELECT ROWNUM AS 순위, TNAME AS 팀명, TWIN AS 승, TDRAW AS 무, TLOSE AS 패, TSCORE AS 득 ,CONCEDED AS 실, (TSCORE-CONCEDED) AS 득실차 FROM (SELECT * FROM TEAM ORDER BY (TWIN*3 + TDRAW) DESC, TSCORE DESC, TSCORE-CONCEDED DESC, TWIN DESC) A " + srt);
 
 		ArrayList<TeamVO> list = new ArrayList();
 
@@ -106,7 +106,7 @@ public class TeamController {
 		}
 
 		System.out.println();
-		System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", "0. 돌아가기", "1. 순위 정렬", "2. 승 정렬", "3. 무 정렬", "4. 패 정렬");
+		System.out.printf("%-10s%-10s%-10s%-10s%-10s\n", "1. 순위 정렬", "2. 승 정렬", "3. 무 정렬", "4. 패 정렬", "8. 돌아가기");
 		selectAll(sc.nextInt());
 
 	}// end select all
