@@ -170,7 +170,7 @@ public class SoccerMenu {
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
 			default:
-				System.out.println("※ 잘못 입력하셨습니다. ※");
+				System.out.println("\t>>  ※ 잘못 입력하셨습니다 ※");
 				continue;	
 
 			}// switch
@@ -263,7 +263,7 @@ public class SoccerMenu {
 					System.out.println("프로그램을 종료합니다.");
 					System.exit(0);
 				default:
-					System.out.println("※ 잘못 입력하셨습니다. ※");
+					System.out.println("\t>>  ※ 잘못 입력하셨습니다 ※");
 					continue;
 				}
 			}
@@ -310,27 +310,6 @@ public class SoccerMenu {
 				}
 			} catch (Exception e) { e.printStackTrace(); }
 		}
-		
-		
-
-//
-//			System.out.println("\n---------------------------------------");
-//			System.out.printf("%s\t1.선수 스탯 리스트\t%15s\n", "|", "|");
-//			System.out.printf("%s\t2.선수 스탯 업데이트\t%15s\n", "|", "|");
-//			System.out.printf("%s\t3.선수 스탯 리스트 삭제\t%7s\n", "|", "|");
-//			System.out.printf("%s\t4.선수 어시스트 순위\t%15s\n", "|", "|");
-//			System.out.printf("%s\t5.경기당 득점률 순위\t%15s\n", "|", "|");
-//			System.out.printf("%s\t6.경기당 어시스트율 순위\t%7s\n", "|", "|");
-//			
-//			System.out.printf("%s\t7.경기당 슈팅수 순위\t%7s\n", "|", "|");
-//			System.out.printf("%s\t8.경기당 유효슈팅 순위\t%7s\n", "|", "|");
-//			System.out.printf("%s\t9.경기당 파울 순위\t%7s\n", "|", "|");
-//			System.out.printf("%s\t10.경기당 옐로우 순위\t%7s\n", "|", "|");
-//			System.out.printf("%s\t11.경기당 레드카드 순위\t%7s\n", "|", "|");
-//			System.out.printf("%s\t12.경기당 오프사이드 순위\t%7s\n", "|", "|");
-//			
-//			System.out.printf("%s\t13.메인메뉴로 돌아가기\t%15s\n", "|", "|");
-//			System.out.println("---------------------------------------");
 
 		public static void playerStatMenu() { 
 			System.out.println("┌─────────────── 선수 스탯 ───────────────┐");
@@ -348,7 +327,6 @@ public class SoccerMenu {
 		}
 		
 		public static void playerStat() throws SQLException{
-			
 			while(true) {
 				playerStatMenu();
 				switch(sc.nextInt()) {

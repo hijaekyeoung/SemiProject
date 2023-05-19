@@ -476,4 +476,4 @@ public class playerStatController {
          }
 
       }
-} // playerStatController end      
+} // playerStatControl
