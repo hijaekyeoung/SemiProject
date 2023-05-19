@@ -187,7 +187,7 @@ public class SoccerMenu {
 			System.out.printf("│%-34s│\n","4. 미진행 경기 일정 ");
 			System.out.printf("│%-33s│\n","5. 라운드별 경기 일정 ");
 //			System.out.printf("│%-30s│\n","7. 일정/결과 메뉴로 돌아가기");
-			System.out.printf("│%-31s│\n","7. 이전 메뉴로 돌아가기");
+			System.out.printf("│%-32s│\n","7. 이전 메뉴로 돌아가기");
 			System.out.printf("│%-32s│\n","8. 메인메뉴로 돌아가기");
 			System.out.printf("│%-35s│\n","9. 프로그램 종료");
 			System.out.println("└─────────────────────────────────────────┘");
@@ -353,7 +353,7 @@ public class SoccerMenu {
 				playerStatMenu();
 				switch(sc.nextInt()) {
 					
-					case 1: playerStatController.selectAll(); break;	
+					case 1: playerStatController.selectAll(1); break;	
 					case 2: playerStatController.playerStatUpdate(); break;
 					case 3: playerStatController.delete(); break;
 					case 4: playerStatController.selectAllAssists(); break;
