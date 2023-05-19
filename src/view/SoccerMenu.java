@@ -287,9 +287,9 @@ public class SoccerMenu {
 		public static void playerStatMenu() {
 			System.out.println("┌─────────────── 선수 스탯 ───────────────┐");
 			System.out.printf("│%-29s│\n","1. 선수 스탯 리스트　　　　　 ");
-			System.out.printf("│%-29s│\n","2. 선수 어시스트 순위　　　　");
-			System.out.printf("│%-29s│\n","3. 특정 나이대에 속한 선수목록");
-			System.out.printf("│%-29s│\n","4. 선수 스탯 리스트 삭제　　　");
+			System.out.printf("│%-29s│\n","2. 선수 스탯 업데이트　　　　");
+			System.out.printf("│%-29s│\n","3. 선수 스탯 리스트 삭제");
+			System.out.printf("│%-29s│\n","4. 선수 어시스트 순위　　　");
 			System.out.printf("│%-29s│\n","5. 경기당 득점률 순위　　　　");
 			System.out.printf("│%-29s│\n","6. 경기당 어시스트율 순위　　");
 			System.out.printf("│%-32s│\n","8. 메인메뉴로 돌아가기");
@@ -310,15 +310,16 @@ public class SoccerMenu {
 				playerStatMenu();
 				switch(sc.nextInt()) {
 					
-					case 1: playerStatController.selectAll(); break;	
+					case 1: playerStatController.selectAll(1); break;	
 					case 2: playerStatController.playerStatUpdate(); break;
 					case 3: playerStatController.delete(); break;
 					case 4: playerStatController.selectAllAssists(); break;
 					case 5: playerStatController.selectAllByGoalsPerGame(); break;
 					case 6: playerStatController.selectAllByAssistsPerGame(); break;
+					case 7: playerStatController.selectAllByShotsPerGame(); break;
+					case 8: playerStatController.selectAllByShots_on_goalPerGame(); break;
 					
-					
-					case 8: return;
+					case 9: return;
 					
 					
 
