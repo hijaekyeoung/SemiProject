@@ -25,7 +25,7 @@ public class playerStatController {
          conn = ConnectionSingletonHelper.getConnection();
          stmt = conn.createStatement();
          pstmtSelectAll = conn.prepareStatement(sqlSelectAll);
-         conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
+         //conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
 
       } catch (Exception e) {e.printStackTrace();}   
    }
@@ -65,7 +65,6 @@ public class playerStatController {
 
 	   System.out.printf(" %-2s | %-8s | %-7s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "고유번호", "선수이름", "소속팀", "경기", "득점", "도움","슈팅","유효슈팅","파울","경고","퇴장","오프사이드");
 	   System.out.println("=======================================================================================================================");
-	   System.out.println();
 
 	   int len; // 선수이름 len
 	   int len2; // 소속팀 len
@@ -122,35 +121,43 @@ public class playerStatController {
 	   
 	   switch (asc) { // 
 		case 1 :
+			System.out.println("골 득점 순으로 정렬되었습니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY GOAL DESC"); // 전체 선수 출력 (골 기준)
 			break;
 		case 2:
+			System.out.println("경기 수로 정렬되었습니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY G_COUNT DESC"); // 경기수 정렬 
 			break;
 		case 3:
+			System.out.println("슈팅 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY ASSISTS DESC FETCH FIRST 10 ROW ONLY"); // 도움 정렬
 			break;
 		case 4:
+			System.out.println("유효슈팅 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY SHOTS DESC FETCH FIRST 10 ROW ONLY"); // 슈팅 정렬
 			break;
 		case 5:
+			System.out.println("도움 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY SHOTS_ON_GOAL DESC FETCH FIRST 10 ROW ONLY"); // 유효슈팅 정렬
 			break;
 		case 6:
+			System.out.println("파울 WORST10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY FOUL DESC FETCH FIRST 10 ROW ONLY"); // 파울 정렬
 			break;
 		case 7:
+			System.out.println("경고 WORST10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY YCARD DESC FETCH FIRST 10 ROW ONLY"); // 옐로우 정렬
 			break;
 		case 8:
+			System.out.println("퇴장 WORST10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY RCARD DESC FETCH FIRST 10 ROW ONLY"); // 레드 정렬
 			break;
 		case 9:
+			System.out.println("오프사이드 WORST10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY OFFSIDE DESC FETCH FIRST 10 ROW ONLY"); // 오프사이드 정렬
 			break;
-
 		default :
-			return; //이전으로
+			return;
 		}
 
 	   ArrayList<PlayerStatVO> list = new ArrayList();
@@ -174,7 +181,6 @@ public class playerStatController {
 
 	   System.out.printf(" %-2s | %-8s | %-7s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s | %-3s\n", "고유번호", "선수이름", "소속팀", "경기", "득점", "도움","슈팅","유효슈팅","파울","경고","퇴장","오프사이드");
 	   System.out.println("=======================================================================================================================");
-	   System.out.println();
 
 	   int len; // 선수이름 len
 	   int len2; // 소속팀 len
