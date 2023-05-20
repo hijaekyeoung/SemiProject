@@ -235,6 +235,8 @@ public class PlayerController {
 			System.out.println("삭제할 선수의 고유번호를 입력하세요");
 			System.out.print("선수고유번호 : ");
 			int pno = sc.nextInt();
+			
+			
 			pstmt.setInt(1, pno);
 			rs = pstmt.executeQuery();
 
