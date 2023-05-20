@@ -260,17 +260,8 @@ public class playerStatController {
  	  System.out.println();
  	  System.out.print("스탯을 갱신할 선수 고유번호를 입력하시오: ");
  	  int pno =sc.nextInt();
-	  pstmt.setInt(1, pno); // 작동 안되면 지움
-	  rs = pstmt.executeQuery(); // 작동 안되면 지움
+
 	  
-	  if(!rs.next()) { // 작동 안되면 지움
-			System.out.println("존재하는 선수번호가 없습니다.");// 작동 안되면 지움
-			System.out.println("선수메뉴로 돌아갑니다.");// 작동 안되면 지움
-			System.out.println();// 작동 안되면 지움
-			return;// 작동 안되면 지움
-		  
-	  }else // 작동 안되면 지움
- 	  
  	 
  	  System.out.print("직전 경기 득점: "); 					
  	  int goal = sc.nextInt();
