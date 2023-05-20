@@ -16,15 +16,22 @@ public class playerStatController {
    static Scanner sc = new Scanner(System.in);
    static Statement stmt = null;
    static ResultSet rs = null;
-   static PreparedStatement pstmtSelectAll ,pstmt,selectAll;
+   static PreparedStatement pstmtSelectAll ,pstmt,selectAll, pstmtUpdate;
    static Connection conn = null;
    static String sqlSelectAll = "SELECT * FROM PLAYERSTAT";
+   static String sqlUpdate = "update playerStat set g_count=?, goal=?, "
+			+ "assists=?,shots=?,shots_on_goal=?,foul=?, ycard=?, rcard=?, offside=? where pno=?";
+   
+   
+   
    
    public static void connect() {
       try {
          conn = ConnectionSingletonHelper.getConnection();
          stmt = conn.createStatement();
          pstmtSelectAll = conn.prepareStatement(sqlSelectAll);
+         pstmtUpdate = conn.prepareStatement(sqlUpdate);
+         
          //conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
 
       } catch (Exception e) {e.printStackTrace();}   
@@ -40,7 +47,7 @@ public class playerStatController {
       }
    }
    
-   public static void selectAllTest() throws SQLException{ // 1. 모든 필드 상위 전체팀 10명 출력 (1번은 전체 선수 출력)
+   public static void selectAllTest() throws SQLException{ // 전체 선수들의 정보를 볼수 있게 도와주는 컨트롤러
 	   
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY GOAL DESC"); // 전체 선수 출력 (골 기준)
 			
@@ -129,15 +136,15 @@ public class playerStatController {
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY G_COUNT DESC"); // 경기수 정렬 
 			break;
 		case 3:
-			System.out.println("슈팅 TOP10 명단입니다.\n");
+			System.out.println("도움 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY ASSISTS DESC FETCH FIRST 10 ROW ONLY"); // 도움 정렬
 			break;
 		case 4:
-			System.out.println("유효슈팅 TOP10 명단입니다.\n");
+			System.out.println("슈팅 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY SHOTS DESC FETCH FIRST 10 ROW ONLY"); // 슈팅 정렬
 			break;
 		case 5:
-			System.out.println("도움 TOP10 명단입니다.\n");
+			System.out.println("유효슈팅 TOP10 명단입니다.\n");
 			rs = stmt.executeQuery("SELECT PNO, PNAME,TNAME, G_COUNT, GOAL, ASSISTS, SHOTS, SHOTS_ON_GOAL, FOUL, YCARD, RCARD, OFFSIDE FROM PLAYERSTAT ORDER BY SHOTS_ON_GOAL DESC FETCH FIRST 10 ROW ONLY"); // 유효슈팅 정렬
 			break;
 		case 6:
@@ -253,6 +260,18 @@ public class playerStatController {
  	  System.out.println();
  	  System.out.print("스탯을 갱신할 선수 고유번호를 입력하시오: ");
  	  int pno =sc.nextInt();
+	  pstmt.setInt(1, pno); // 작동 안되면 지움
+	  rs = pstmt.executeQuery(); // 작동 안되면 지움
+	  
+	  if(!rs.next()) { // 작동 안되면 지움
+			System.out.println("존재하는 선수번호가 없습니다.");// 작동 안되면 지움
+			System.out.println("선수메뉴로 돌아갑니다.");// 작동 안되면 지움
+			System.out.println();// 작동 안되면 지움
+			return;// 작동 안되면 지움
+		  
+	  }else // 작동 안되면 지움
+ 	  
+ 	 
  	  System.out.print("직전 경기 득점: "); 					
  	  int goal = sc.nextInt();
  	  System.out.print("직전 경기 도움: "); 				
@@ -269,6 +288,8 @@ public class playerStatController {
  	  int rcard = sc.nextInt();
  	  System.out.print("직전 경기 오프사이드: "); 			
  	  int offside = sc.nextInt();
+ 	  
+	  
  	  	
  	  	pstmt = conn.prepareStatement("SELECT pno, pname, tname, g_count, "
  	  								+ "goal, assists, shots, shots_on_goal,"
@@ -304,10 +325,12 @@ public class playerStatController {
  	  		pstmt.setInt(9, offside + offside1);
  	  		pstmt.setInt(10, pno);
  	  		int result = pstmt.executeUpdate();
-
  	  		System.out.println(result+ "명의 스탯이 업데이트 되었습니다.");
-
-		} catch (Exception e) {e.printStackTrace();}
+ 	  		
+ 	  		
+		} catch (Exception e) {e.printStackTrace();} 
+ 	  	
+	  
    }
 
       public static void delete() throws SQLException { // 3. 선수 삭제   완성!
@@ -318,9 +341,22 @@ public class playerStatController {
                System.out.print("선수고유번호 : ");
                int pno = sc.nextInt();
                pstmt = conn.prepareStatement("DELETE from playerStat WHERE pno = ?");
-               pstmt.setInt(1, pno);;
-               int result = pstmt.executeUpdate();
-               System.out.println(result + "명 선수의 정보가 삭제 되었습니다.");
+               pstmt.setInt(1, pno);
+               rs = pstmt.executeQuery();
+               
+               if(!rs.next()) {
+   					System.out.println("존재하는 선수가 없습니다.");
+   					System.out.println("선수메뉴로 돌아갑니다.");
+   					System.out.println();
+   					return;
+            	   
+               }else {
+               
+            	   pstmt = conn.prepareStatement("DELETE from playerStat WHERE pno = ?");//
+            	   pstmt.setInt(1, pno);//
+            	   int result = pstmt.executeUpdate();
+            	   System.out.println("선수의 정보가 삭제 되었습니다.");
+               }
             } catch (Exception e) {e.printStackTrace();}
       }
       

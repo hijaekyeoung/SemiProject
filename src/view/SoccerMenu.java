@@ -96,7 +96,6 @@ public class SoccerMenu {
 				
 			}
 		}
-
 	}// end menu
 
 	public static void teamMenu() throws SQLException, IOException {
@@ -134,9 +133,7 @@ public class SoccerMenu {
 				continue;	
 			}
 		}
-
 	}// end menu
-	
 	
 	// *//menu class
 	public static void gameresultMenu() throws SQLException, IOException {
@@ -223,7 +220,6 @@ public class SoccerMenu {
 		} // end while
 	}// menu end
 	
-
 		public static void playerMenuList() {
 			System.out.println("┌─────────────── 선수 메뉴 ───────────────┐");
 			System.out.printf("│%-32s│\n","1. 선수 리스트　　　　");
