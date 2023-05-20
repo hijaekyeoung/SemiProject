@@ -156,10 +156,10 @@ public class SoccerMenu {
 				gameSelectMenu();
 				break; // (
 			case 2:
-				gameResultController.updateResult();
+				gameResultController.selectWillplay(); gameResultController.updateResult();
 				break;
 			case 3:
-				gameResultController.updateDate();
+				gameResultController.selectWillplay(); gameResultController.updateDate();
 				break;
 			case 4:
 				gameResultController.insertGame();
