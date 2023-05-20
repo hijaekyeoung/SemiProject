@@ -242,6 +242,7 @@ public class gameResultController { // controller
 			pstmt.setString(3, hometeam);
 			pstmt.setString(4, awayteam);
 			pstmt.executeUpdate();
+			selectWillplay();
 			System.out.println("경기 일정 추가되었습니다.");
 
 		} catch (Exception e) {
