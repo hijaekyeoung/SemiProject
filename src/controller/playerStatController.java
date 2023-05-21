@@ -18,9 +18,9 @@ public class playerStatController {
    static ResultSet rs = null;
    static PreparedStatement pstmtSelectAll ,pstmt,selectAll, pstmtUpdate;
    static Connection conn = null;
-   static String sqlSelectAll = "SELECT * FROM PLAYERSTAT";
-   static String sqlUpdate = "update playerStat set g_count=?, goal=?, "
-			+ "assists=?,shots=?,shots_on_goal=?,foul=?, ycard=?, rcard=?, offside=? where pno=?";
+//   static String sqlSelectAll = "SELECT * FROM PLAYERSTAT";
+//   static String sqlUpdate = "update playerStat set g_count=?, goal=?, "
+//			+ "assists=?,shots=?,shots_on_goal=?,foul=?, ycard=?, rcard=?, offside=? where pno=?";
    
    
    
@@ -29,8 +29,8 @@ public class playerStatController {
       try {
          conn = ConnectionSingletonHelper.getConnection();
          stmt = conn.createStatement();
-         pstmtSelectAll = conn.prepareStatement(sqlSelectAll);
-         pstmtUpdate = conn.prepareStatement(sqlUpdate);
+//         pstmtSelectAll = conn.prepareStatement(sqlSelectAll);
+//         pstmtUpdate = conn.prepareStatement(sqlUpdate);
          
          //conn.setAutoCommit(false); // 자동커밋 끄기, 주석처리를 하면 커밋이 된다.
 
@@ -191,7 +191,7 @@ public class playerStatController {
 
 	   int len; // 선수이름 len
 	   int len2; // 소속팀 len
-	   for (PlayerStatVO playerStat : list) {
+	   for (PlayerStatVO playerStat : list) {//////////////////////////////////////////////////////// 
 		   if(playerStat.getPname().getBytes().length == 15) { // 에르난데스, 팔로세비치
 			   len = 6;
 			   
