@@ -83,7 +83,7 @@ public class SoccerMenu {
 				break;
 			case 4:
 				gameResultController.selectWillplay();
-				VoteController.insert();
+				VoteController.insert(0);
 				break;
 			case 8:
 				return;
