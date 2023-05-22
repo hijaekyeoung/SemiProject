@@ -120,17 +120,19 @@ public class VoteController {
 	}
 
 	// insert
-	public static void insert() throws SQLException {
+	public static void insert(int gno) throws SQLException {
 
-		System.out.println("gno : ");
-		int gno = sc.nextInt();
-
+	      if(gno == 0) {
+	      System.out.println("gno : ");
+	      gno = sc.nextInt();
+	      }
+		
 		try {
 			pstmt = conn.prepareStatement("INSERT INTO VOTE(GNO) VALUES(?)");
 			pstmt.setInt(1, gno);
 
 			int result = pstmt.executeUpdate();
-			System.out.println(result + "개 데이터가 추가 되었습니다.");
+			System.out.println("투표가 추가 되었습니다.");
 
 		} catch (Exception e) {
 			e.printStackTrace();
